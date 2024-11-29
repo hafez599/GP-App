@@ -1,13 +1,14 @@
 import subprocess
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
-from PySide6.QtWidgets import ( QMainWindow, QVBoxLayout, QPushButton, 
-                             QWidget, QSlider, QHBoxLayout, QProgressBar,
-                             QLabel)
+from PySide6.QtWidgets import (QMainWindow, QVBoxLayout, QPushButton,
+                               QWidget, QSlider, QHBoxLayout, QProgressBar,
+                               QLabel)
 from PySide6.QtCore import QUrl, Qt, QTimer
 
+
 class VideoPlayer(QMainWindow):
-    def __init__(self,main_window):
+    def __init__(self, main_window):
         super().__init__()
         self.main_window = main_window
         self.resize(800, 600)
@@ -54,7 +55,7 @@ class VideoPlayer(QMainWindow):
 
         # Controls layout
         controls_layout = QHBoxLayout()
-        
+
         # Play/Pause button
         self.play_pause_button = QPushButton("Play")
         self.play_pause_button.clicked.connect(self.toggle_play_pause)
@@ -87,14 +88,14 @@ class VideoPlayer(QMainWindow):
         self.timer.timeout.connect(self.update_subtitle)
         self.media_player.durationChanged.connect(self.update_duration)
         self.media_player.positionChanged.connect(self.update_position_slider)
-        
+
         # Set default volume
         self.audio_output.setVolume(0.5)
-        
+
         # Store transcript segments
         self.transcript_segments = []
 
-    def load_video(self,video_path):
+    def load_video(self, video_path):
         # Start playing video
         self.media_player.setSource(QUrl.fromLocalFile(video_path))
         self.media_player.play()
@@ -106,7 +107,6 @@ class VideoPlayer(QMainWindow):
         with open(transcript_path, "r", encoding="utf-8") as f:
             transcription = f.read()
             self.handle_transcription(transcription)
-
 
     def handle_transcription(self, transcription):
         # Parse and store transcript segments
@@ -128,18 +128,18 @@ class VideoPlayer(QMainWindow):
                 except Exception as e:
                     print(f"Error parsing line: {line}")
                     continue
-        
+
         # Save transcription to file
         with open("transcription.txt", "w", encoding="utf-8") as file:
             file.write(transcription)
-        
+
         # Hide progress bar
         self.progress_bar.hide()
         self.progress_bar.setValue(0)
 
     def update_subtitle(self):
         current_time = self.media_player.position() / 1000.0  # Convert to seconds
-        
+
         # Find the current segment
         current_text = ""
         for segment in self.transcript_segments:
