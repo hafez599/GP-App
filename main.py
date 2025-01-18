@@ -8,7 +8,6 @@ if __name__ == '__main__':
     # Load the light theme stylesheet
     with open('app-light-theme.css', 'r') as f:
         app.setStyleSheet(f.read())
-    
 
     window = MainWindow()
     window.show()
