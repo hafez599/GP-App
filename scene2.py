@@ -1,10 +1,11 @@
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QLabel,
-                               QProgressBar)
+from PySide6.QtWidgets import (
+    QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel)
 from transcriptionWorker import TranscriptionWorker
 from nmtModel import NmtModel
-from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
-from PySide6.QtCore import QUrl
-from PySide6.QtMultimediaWidgets import QVideoWidget
+from PySide6.QtMultimedia import QAudioOutput
+from PySide6.QtSvgWidgets import QSvgWidget
+from PySide6.QtCore import QTimer
+from PySide6.QtCore import Qt
 
 
 class Scene2(QWidget):
@@ -16,70 +17,58 @@ class Scene2(QWidget):
         layout = QVBoxLayout()
         self.data_label = QLabel()
         self.data_label.setWordWrap(True)
-        layout.addWidget(self.data_label)
+        # layout.addWidget(self.data_label)
 
-        # video spinner
-        # Create a video widget
-        self.video_widget = QVideoWidget()
-        # Set the fixed width and height for the video
-        # Set desired width and height
-        self.video_widget.setFixedSize(150, 150)
+        # SVG display widget
+        self.svg_widget = QSvgWidget()
+        self.svg_widget.setFixedSize(300, 300)
+        # Create a horizontal layout to center the SVG widget
+        svg_layout = QHBoxLayout()
+        svg_layout.addWidget(self.svg_widget)
+        svg_layout.setAlignment(
+            self.svg_widget, Qt.AlignmentFlag.AlignCenter)  # Center the widget
 
-        # Set up media player
-        self.media_player = QMediaPlayer(self)
-        self.media_player.setVideoOutput(self.video_widget)
+        # Add the centered layout to the main layout
+        layout.addLayout(svg_layout)
+        # Load the base SVG content
+        svg_file = "infinite-spinner.svg"
+        with open(svg_file, "r", encoding="utf-8") as file:
+            self.base_svg = file.read()
 
-        # Set up audio output
-        self.audio_output = QAudioOutput()
-        self.media_player.setAudioOutput(self.audio_output)
+        # Animation parameters
+        self.current_offset = 0  # Stroke-dashoffset value
+        self.offset_increment = 20  # Amount to change in each frame
+        self.dasharray = 300  # Stroke-dasharray value
 
-        # Load the video file
-        self.media_player.setSource(QUrl.fromLocalFile(
-            "Animation - 1732909505431 (1).gif"))  # Replace with your video path
+        # Timer for updating SVG dynamically
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_svg_frame)
+        self.timer.start(30)  # Update every 30 ms
 
-        # Connect the signal to loop the video
-        self.media_player.mediaStatusChanged.connect(self.handle_media_status)
-
-        self.video_widget.setStyleSheet("""
-            QVideoWidget{
-                margin-left: 500px;
-                height: 150px;
-            }
-            QMediaPlayer
-            {
-                width: 150px;
-                height: 150px;
-            }
-            """
-                                        )
-        # Start playback
-        self.media_player.play()
-
-        # Create progress bar
-        self.progress_bar = QProgressBar()
-        self.progress_bar.setRange(0, 100)  # Set range for progress
-        layout.addWidget(self.progress_bar)
+        # Initial update
+        self.update_svg_frame()
 
         # Back button
         button = QPushButton("Back")
         button.clicked.connect(self.main_window.switch_to_scene1)
-        button.setStyleSheet("""
-            QPushButton {
-                background-color: #0083e5;
-                border: none;
-                padding: 15px;
-                border-radius: 5px;
-                min-width: 120px;
-            }
-            QPushButton:hover {
-                background-color: #359ae8;
-            }
-        """)
-
-        # Add widgets to layout
-        layout.addWidget(self.video_widget)
         layout.addWidget(button)
+
         self.setLayout(layout)
+
+    def update_svg_frame(self):
+        """Update the SVG content dynamically."""
+        # Update the dashoffset value
+        self.current_offset = (self.current_offset +
+                               self.offset_increment) % (2.3 * self.dasharray)
+
+        # Update the path dynamically by replacing its stroke-dashoffset
+        updated_svg = self.base_svg.replace(
+            'stroke-dashoffset="0"',
+            f'stroke-dashoffset="{self.current_offset}"'
+        )
+
+        # Load the updated SVG content into the widget
+        self.svg_widget.load(updated_svg.encode("utf-8"))
 
     def transcript(self, video_path, language):
         self.video_path = video_path
@@ -95,8 +84,6 @@ class Scene2(QWidget):
         # Connect signals
         self.transcription_worker.progress.connect(self.update_progress)
         self.transcription_worker.finished.connect(self.handle_transcription)
-        # self.transcription_worker.error.connect(
-        #     self.handle_error)  # Add error handler
 
         self.transcription_worker.start()
         print("TranscriptionWorker started")  # Debug print
@@ -135,8 +122,11 @@ class Scene2(QWidget):
             pass
             # print(message)
 
-    def handle_media_status(self, status):
-        """Restart the video when it ends."""
-        if status == QMediaPlayer.EndOfMedia:
-            self.media_player.stop()
-            self.media_player.play()
+    # you can delete this function
+    def load_styles(self):
+        """Load styles from an external CSS file."""
+        try:
+            with open("styles.css", "r") as file:
+                self.setStyleSheet(file.read())
+        except FileNotFoundError:
+            print("Error: styles.css file not found.")
