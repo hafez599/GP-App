@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel)
+    QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel,QProgressBar)
 from transcriptionWorker import TranscriptionWorker
 from nmtModel import NmtModel
 from PySide6.QtMultimedia import QAudioOutput
@@ -18,7 +18,10 @@ class Scene2(QWidget):
         self.data_label = QLabel()
         self.data_label.setWordWrap(True)
         # layout.addWidget(self.data_label)
-
+                # Progress bar
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setTextVisible(True)
+        self.progress_bar.hide()
         # SVG display widget
         self.svg_widget = QSvgWidget()
         self.svg_widget.setFixedSize(300, 300)
@@ -70,63 +73,73 @@ class Scene2(QWidget):
         # Load the updated SVG content into the widget
         self.svg_widget.load(updated_svg.encode("utf-8"))
 
-    def transcript(self, video_path, language):
+    def transcript(self, video_path,language):
         self.video_path = video_path
         self.language = language
         print(f"Starting transcription for: {video_path}")  # Debug print
-
         if not video_path:
             self.data_label.setText("Error: No video file selected")
             return
-
+            
+        self.progress_bar.show()
+        self.progress_bar.setFormat("Processing...")
         self.transcription_worker = TranscriptionWorker(video_path)
-
-        # Connect signals
         self.transcription_worker.progress.connect(self.update_progress)
         self.transcription_worker.finished.connect(self.handle_transcription)
-
+        self.transcription_worker.error.connect(self.handle_error)  # Add error handler
         self.transcription_worker.start()
         print("TranscriptionWorker started")  # Debug print
 
     def handle_transcription(self, transcription):
+        video_path = self.video_path
         print("Received transcription")  # Debug print
-        # Show first 100 chars
-        self.data_label.setText(transcription[:100] + "...")
-
-        if not self.language:
-            self.nmtModel = NmtModel(transcription)
+        # Display the result
+        self.data_label.setText(transcription[:100] + "...")  # Show first 100 chars
+        
+        # Save transcription to file with a unique name based on the video path
+        try:
+            with open("English_transcription.txt", "w", encoding="utf-8") as file:
+                file.write(transcription)
+        except Exception as e:
+            print(f"Error saving file: {str(e)}")  # Debug print
+            self.data_label.setText(f"Error saving transcription: {str(e)}")
+        
+        if self.language == False:
+            self.nmtModel = NmtModel(transcription, video_path)
             self.nmtModel.progress.connect(self.update_progress)
-            self.nmtModel.finished.connect(lambda translated_text: self.handle_transcription_forNmt(
-                translated_text, self.video_path))
+            self.nmtModel.finished.connect(self.handle_transcription_forNmt)
             self.nmtModel.start()
         else:
-            # Save transcription to file
-            try:
-                with open("transcription.txt", "w", encoding="utf-8") as file:
-                    file.write(transcription)
-                print("Transcription saved to file")  # Debug print
-            except Exception as e:
-                print(f"Error saving file: {str(e)}")  # Debug print
-                self.data_label.setText(
-                    f"Error saving transcription: {str(e)}")
+            # Hide progress bar
+            self.progress_bar.hide()
+            self.progress_bar.setValue(0)
+            self.main_window.switch_to_VideoPlayer(video_path,self.language)
 
-        self.main_window.switch_to_VideoPlayer(self.video_path)
+
+
+    def handle_transcription_forNmt(self, transcription,video_path):
+        print("Received transcription")  # Debug print
+    # Save transcription to file
+        try:
+            with open("Arabic_transcription.txt", "w", encoding="utf-8") as file:
+                file.write(transcription)
+            print("Transcription saved to file")  # Debug print
+        except Exception as e:
+            print(f"Error saving file: {str(e)}")  # Debug print
+            self.data_label.setText(f"Error saving transcription: {str(e)}")
+                
+        # Hide progress bar
+        self.progress_bar.hide()
+        self.progress_bar.setValue(0)
+        self.main_window.switch_to_VideoPlayer(video_path,self.language)
+
+
+
+    def handle_error(self, error_message):
+        print(f"Error received: {error_message}")  # Debug print
+        self.data_label.setText(f"Error: {error_message}")
+        self.progress_bar.hide()
 
     def update_progress(self, message):
         print(f"Progress update: {message}")  # Debug print
-        # Update the progress bar. Assuming message contains a percentage.
-        if message.isdigit():
-            self.progress_bar.setValue(int(message))
-            print(message)
-        else:
-            pass
-            # print(message)
-
-    # you can delete this function
-    def load_styles(self):
-        """Load styles from an external CSS file."""
-        try:
-            with open("styles.css", "r") as file:
-                self.setStyleSheet(file.read())
-        except FileNotFoundError:
-            print("Error: styles.css file not found.")
+        self.progress_bar.setFormat(message)

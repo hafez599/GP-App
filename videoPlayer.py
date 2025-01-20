@@ -2,10 +2,9 @@ import subprocess
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtWidgets import (QMainWindow, QVBoxLayout, QPushButton,
-                               QWidget, QSlider, QHBoxLayout, QProgressBar,
+                               QWidget, QSlider, QHBoxLayout, QProgressBar,QSizePolicy,
                                QLabel)
 from PySide6.QtCore import QUrl, Qt, QTimer
-
 
 class VideoPlayer(QMainWindow):
     def __init__(self, main_window):
@@ -25,6 +24,7 @@ class VideoPlayer(QMainWindow):
 
         # Video widget
         self.video_widget = QVideoWidget()
+        self.video_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # Allow widget to expand
         video_layout.addWidget(self.video_widget)
 
         # Subtitle label
@@ -95,7 +95,7 @@ class VideoPlayer(QMainWindow):
         # Store transcript segments
         self.transcript_segments = []
 
-    def load_video(self, video_path):
+    def load_video(self,video_path,language):
         # Start playing video
         self.media_player.setSource(QUrl.fromLocalFile(video_path))
         self.media_player.play()
@@ -103,7 +103,10 @@ class VideoPlayer(QMainWindow):
         self.play_pause_button.setText("Pause")
 
         # Try to load existing transcription
-        transcript_path = "transcription.txt"
+        if(language == False):
+            transcript_path = "Arabic_transcription.txt"
+        else:
+            transcript_path = "English_transcription.txt"
         with open(transcript_path, "r", encoding="utf-8") as f:
             transcription = f.read()
             self.handle_transcription(transcription)
@@ -128,10 +131,6 @@ class VideoPlayer(QMainWindow):
                 except Exception as e:
                     print(f"Error parsing line: {line}")
                     continue
-
-        # Save transcription to file
-        with open("transcription.txt", "w", encoding="utf-8") as file:
-            file.write(transcription)
 
         # Hide progress bar
         self.progress_bar.hide()

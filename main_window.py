@@ -24,8 +24,8 @@ class MainWindow(QMainWindow):
         self.scene2.transcript(path, language)
         self.stacked_widget.setCurrentIndex(1)
 
-    def switch_to_VideoPlayer(self, path):
-        self.videoPlayer.load_video(path)
+    def switch_to_VideoPlayer(self, path,language):
+        self.videoPlayer.load_video(path,language)
         self.stacked_widget.setCurrentIndex(2)
 
     def switch_to_scene1(self):
