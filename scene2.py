@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel,QProgressBar)
-from transcriptionWorker import TranscriptionWorker
+from TranscriptionWorkerAPI import TranscriptionWorkerAPI
+# from transcriptionWorker import TranscriptionWorker
 from nmtModel import NmtModel
 from PySide6.QtMultimedia import QAudioOutput
 from PySide6.QtSvgWidgets import QSvgWidget
@@ -83,7 +84,7 @@ class Scene2(QWidget):
             
         self.progress_bar.show()
         self.progress_bar.setFormat("Processing...")
-        self.transcription_worker = TranscriptionWorker(video_path)
+        self.transcription_worker = TranscriptionWorkerAPI(video_path) #////////////////////////////////////////////////////////
         self.transcription_worker.progress.connect(self.update_progress)
         self.transcription_worker.finished.connect(self.handle_transcription)
         self.transcription_worker.error.connect(self.handle_error)  # Add error handler
