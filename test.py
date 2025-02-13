@@ -37,53 +37,133 @@
 #             file.write(output_text)
 #             print("Transcription saved to file")
 
-from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
-from PySide6.QtGui import QFont, QFontDatabase
+# from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
+# from PySide6.QtGui import QFont, QFontDatabase
 
 
-class LabelExample(QWidget):
-    def __init__(self):
+# class LabelExample(QWidget):
+#     def __init__(self):
+#         super().__init__()
+
+#         # Layout for the label
+#         layout = QVBoxLayout()
+
+#         # Create a QLabel
+#         label = QLabel("Hello, World!")
+
+#         # Load the custom font
+#         font_id = QFontDatabase.addApplicationFont('DancingScript-VariableFont_wght.ttf')
+
+#         # Check if the font was successfully loaded
+#         if font_id == -1:
+#             print("Failed to load font!")
+#         else:
+#             # Get the font family name (it might be different from the font file name)
+#             font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
+
+#         # Create a QFont object and set the font properties
+#         font = QFont()
+#         font.setFamily(font_family)  # Set the font family
+#         font.setPointSize(18)    # Set the font size
+#         font.setBold(True)       # Set the font to bold
+#         font.setItalic(False)    # Set the font to not italic
+#         font.setUnderline(False)  # Set the font to not underlined
+
+#         # Apply the font to the label
+#         label.setFont(font)
+
+#         # Set text color
+#         label.setStyleSheet("color: #FF6347;")  # Set text color
+
+#         # Add the label to the layout
+#         layout.addWidget(label)
+
+#         # Set layout for the window
+#         self.setLayout(layout)
+
+
+# if __name__ == "__main__":
+#     app = QApplication([])
+#     window = LabelExample()
+#     window.show()
+#     app.exec_()
+
+
+
+
+
+
+
+
+import subprocess
+from PySide6.QtCore import QThread, Signal
+from whisper import load_model
+import torch
+import os
+from pathlib import Path
+
+class TranscriptionWorker(QThread):
+    finished = Signal(str)
+    progress = Signal(str)
+    error = Signal(str)
+
+    def __init__(self, video_file):
         super().__init__()
+        self.video_file = video_file
+        print(f"Initialized with video file: {video_file}")  # Debug print
 
-        # Layout for the label
-        layout = QVBoxLayout()
+    def run(self):
+        try:
+            # Extract audio
+            print("Starting audio extraction...")  # Debug print
+            self.progress.emit("Extracting audio...")
 
-        # Create a QLabel
-        label = QLabel("Hello, World!")
+            # Get the current working directory of the project
+            project_dir = Path(os.getcwd())  # Current project directory
+            video_name = Path(self.video_file).stem  # Get video filename without extension
+            audio_file = project_dir / f"{video_name}.mp3"  # Save in project directory
 
-        # Load the custom font
-        font_id = QFontDatabase.addApplicationFont('DancingScript-VariableFont_wght.ttf')
+            print(f"Running ffmpeg command to save {audio_file}")  # Debug print
+            subprocess.run(
+                ["ffmpeg", "-i", self.video_file, "-q:a",
+                 "0", "-map", "a", str(audio_file)],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
+            print("Audio extraction complete")  # Debug print
 
-        # Check if the font was successfully loaded
-        if font_id == -1:
-            print("Failed to load font!")
-        else:
-            # Get the font family name (it might be different from the font file name)
-            font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
+            # Transcribe audio
+            print("Loading Whisper model...")  # Debug print
+            self.progress.emit("Loading Whisper model...")
+            model = load_model(
+                "tiny", device="cuda" if torch.cuda.is_available() else "cpu")
 
-        # Create a QFont object and set the font properties
-        font = QFont()
-        font.setFamily(font_family)  # Set the font family
-        font.setPointSize(18)    # Set the font size
-        font.setBold(True)       # Set the font to bold
-        font.setItalic(False)    # Set the font to not italic
-        font.setUnderline(False)  # Set the font to not underlined
+            # Debug print
+            print(f"Using device: {'cuda' if torch.cuda.is_available() else 'cpu'}")
 
-        # Apply the font to the label
-        label.setFont(font)
+            self.progress.emit("Transcribing audio...")
+            print("Starting transcription...")  # Debug print
+            result = model.transcribe(str(audio_file))
 
-        # Set text color
-        label.setStyleSheet("color: #FF6347;")  # Set text color
+            # Format transcription and emit progress
+            transcription = ""
+            total_segments = len(result["segments"])
+            for index, segment in enumerate(result["segments"]):
+                start = segment["start"]
+                end = segment["end"]
+                text = segment["text"]
+                transcription += f"[{start:.2f} - {end:.2f}] {text}\n"
 
-        # Add the label to the layout
-        layout.addWidget(label)
+                # Emit progress update
+                progress_percentage = (index + 1) / total_segments * 100
+                self.progress.emit(str(int(progress_percentage)))
 
-        # Set layout for the window
-        self.setLayout(layout)
+            print("Emitting finished signal")  # Debug print
+            print(transcription)
+            self.finished.emit(transcription)
 
-
-if __name__ == "__main__":
-    app = QApplication([])
-    window = LabelExample()
-    window.show()
-    app.exec_()
+        except Exception as e:
+            print(f"Error occurred: {str(e)}")  # Debug print
+            self.progress.emit(f"Error: {str(e)}")
+            self.error.emit(str(e))
