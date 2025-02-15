@@ -72,94 +72,94 @@
 #             self.error.emit(str(e))
 
 
-import subprocess
-import os
-from pathlib import Path
-from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.responses import JSONResponse
-from whisper import load_model
-import torch
-import uuid
+# import subprocess
+# import os
+# from pathlib import Path
+# from fastapi import FastAPI, UploadFile, File, HTTPException
+# from fastapi.responses import JSONResponse
+# from whisper import load_model
+# import torch
+# import uuid
 
-app = FastAPI()
+# app = FastAPI()
 
-# Load the Whisper model once at startup
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model = load_model("tiny", device=device)
-
-
-def extract_audio(video_path: str) -> str:
-    """Extracts audio from a video file using FFmpeg and saves it as an MP3."""
-    audio_file = str(Path(video_path).with_suffix(".mp3"))
-
-    subprocess.run(
-        ["ffmpeg", "-i", video_path, "-q:a", "0", "-map", "a", audio_file],
-        check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
-    )
-
-    return audio_file
+# # Load the Whisper model once at startup
+# device = "cuda" if torch.cuda.is_available() else "cpu"
+# model = load_model("tiny", device=device)
 
 
-def transcribe_audio_to_srt_format(audio_path: str) -> str:
-    """Transcribes an audio file using Whisper and returns a subtitle-formatted text."""
-    result = model.transcribe(audio_path)
-    # srt_text = ""
+# def extract_audio(video_path: str) -> str:
+#     """Extracts audio from a video file using FFmpeg and saves it as an MP3."""
+#     audio_file = str(Path(video_path).with_suffix(".mp3"))
 
-    # for index, segment in enumerate(result["segments"], start=1):
-    #     start_time = segment["start"]
-    #     end_time = segment["end"]
-    #     text = segment["text"]
+#     subprocess.run(
+#         ["ffmpeg", "-i", video_path, "-q:a", "0", "-map", "a", audio_file],
+#         check=True,
+#         stdout=subprocess.PIPE,
+#         stderr=subprocess.PIPE
+#     )
 
-    #     # Convert timestamps to SRT format (HH:MM:SS,mmm)
-    #     def format_time(seconds):
-    #         hours = int(seconds // 3600)
-    #         minutes = int((seconds % 3600) // 60)
-    #         seconds = seconds % 60
-    #         milliseconds = int((seconds - int(seconds)) * 1000)
-    #         return f"{hours:02}:{minutes:02}:{int(seconds):02},{milliseconds:03}"
-
-    #     srt_text += f"{index}\n"
-    #     srt_text += f"{format_time(start_time)} --> {format_time(end_time)}\n"
-    #     srt_text += f"{text}\n\n"
-
-    transcription = ""
-    total_segments = len(result["segments"])
-    for index, segment in enumerate(result["segments"]):
-        start = segment["start"]
-        end = segment["end"]
-        text = segment["text"]
-        transcription += f"[{start:.2f} - {end:.2f}] {text}\n"
-    print(transcription)
-    # return srt_text
-    return transcription
+#     return audio_file
 
 
-@app.post("/transcribe/")
-async def transcribe_video(file: UploadFile = File(...)):
-    """API endpoint to handle video file uploads and return SRT-formatted text."""
-    try:
-        # Save the uploaded file temporarily
-        temp_filename = f"temp_{uuid.uuid4().hex}{Path(file.filename).suffix}"
-        temp_filepath = Path(temp_filename)
+# def transcribe_audio_to_srt_format(audio_path: str) -> str:
+#     """Transcribes an audio file using Whisper and returns a subtitle-formatted text."""
+#     result = model.transcribe(audio_path)
+#     # srt_text = ""
 
-        with open(temp_filepath, "wb") as temp_file:
-            temp_file.write(await file.read())
+#     # for index, segment in enumerate(result["segments"], start=1):
+#     #     start_time = segment["start"]
+#     #     end_time = segment["end"]
+#     #     text = segment["text"]
 
-        # Extract audio
-        audio_path = extract_audio(str(temp_filepath))
+#     #     # Convert timestamps to SRT format (HH:MM:SS,mmm)
+#     #     def format_time(seconds):
+#     #         hours = int(seconds // 3600)
+#     #         minutes = int((seconds % 3600) // 60)
+#     #         seconds = seconds % 60
+#     #         milliseconds = int((seconds - int(seconds)) * 1000)
+#     #         return f"{hours:02}:{minutes:02}:{int(seconds):02},{milliseconds:03}"
 
-        # Transcribe into SRT format text
-        srt_text = transcribe_audio_to_srt_format(audio_path)
+#     #     srt_text += f"{index}\n"
+#     #     srt_text += f"{format_time(start_time)} --> {format_time(end_time)}\n"
+#     #     srt_text += f"{text}\n\n"
 
-        # Cleanup
-        os.remove(temp_filepath)
-        os.remove(audio_path)
+#     transcription = ""
+#     total_segments = len(result["segments"])
+#     for index, segment in enumerate(result["segments"]):
+#         start = segment["start"]
+#         end = segment["end"]
+#         text = segment["text"]
+#         transcription += f"[{start:.2f} - {end:.2f}] {text}\n"
+    
+#     # return srt_text
+#     return transcription
 
-        return JSONResponse(content={"transcription": srt_text})
 
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"FFmpeg error: {e}")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# @app.post("/transcribe/")
+# async def transcribe_video(file: UploadFile = File(...)):
+#     """API endpoint to handle video file uploads and return SRT-formatted text."""
+#     try:
+#         # Save the uploaded file temporarily
+#         temp_filename = f"temp_{uuid.uuid4().hex}{Path(file.filename).suffix}"
+#         temp_filepath = Path(temp_filename)
+
+#         with open(temp_filepath, "wb") as temp_file:
+#             temp_file.write(await file.read())
+
+#         # Extract audio
+#         audio_path = extract_audio(str(temp_filepath))
+
+#         # Transcribe into SRT format text
+#         srt_text = transcribe_audio_to_srt_format(audio_path)
+
+#         # Cleanup
+#         os.remove(temp_filepath)
+#         os.remove(audio_path)
+#         print(srt_text)
+#         return JSONResponse(content={"transcription": srt_text})
+
+#     except subprocess.CalledProcessError as e:
+#         raise HTTPException(status_code=500, detail=f"FFmpeg error: {e}")
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
