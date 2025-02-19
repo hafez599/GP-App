@@ -8,10 +8,11 @@ class TranscriptionWorkerAPI(QThread):
     progress = Signal(str)   # Dummy progress signal
     error = Signal(str)      # Signal for errors
 
-    def __init__(self, video_file):
+    def __init__(self, video_file, language):
         super().__init__()
         self.video_file = video_file
-        self.api_url = "https://3d1f-35-185-37-42.ngrok-free.app/transcribe/"  # FastAPI URL
+        # FastAPI URL
+        self.api_url = f"https://9011-34-106-150-129.ngrok-free.app/transcribe/?translate={not language}"
 
     def run(self):
         """Calls the FastAPI endpoint asynchronously and retrieves the transcript file."""
@@ -38,7 +39,7 @@ class TranscriptionWorkerAPI(QThread):
                 print("Received transcription:\n", formatted_text)
 
                 # Save the received transcription file locally
-                transcript_filename = "English_transcription.txt"
+                transcript_filename = "transcription.txt"
                 with open(transcript_filename, "w", encoding="utf-8") as f:
                     f.write(formatted_text)
 

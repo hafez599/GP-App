@@ -54,7 +54,7 @@ class Scene1(QWidget):
         # Create Add Media button
         add_button = QPushButton("Add Media")
         add_button.setIcon(QIcon(
-            "./skip-to-end-dark-mode-glyph-ui-icon-vector-44134816.jpg"))  # Add your icon
+            "./PlayIcon.jpg"))  # Add your icon
         add_button.setIconSize(QSize(24, 24))
         add_button.clicked.connect(self.load_video)
 

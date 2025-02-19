@@ -2,9 +2,10 @@ import subprocess
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtWidgets import (QMainWindow, QVBoxLayout, QPushButton,
-                               QWidget, QSlider, QHBoxLayout, QProgressBar,QSizePolicy,
+                               QWidget, QSlider, QHBoxLayout, QProgressBar, QSizePolicy,
                                QLabel)
 from PySide6.QtCore import QUrl, Qt, QTimer
+
 
 class VideoPlayer(QMainWindow):
     def __init__(self, main_window):
@@ -24,23 +25,16 @@ class VideoPlayer(QMainWindow):
 
         # Video widget
         self.video_widget = QVideoWidget()
-        self.video_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)  # Allow widget to expand
+        self.video_widget.setSizePolicy(
+            QSizePolicy.Expanding, QSizePolicy.Expanding)  # Allow widget to expand
         video_layout.addWidget(self.video_widget)
 
         # Subtitle label
         self.subtitle_label = QLabel()
         self.subtitle_label.setAlignment(Qt.AlignCenter)
-        self.subtitle_label.setStyleSheet("""
-            QLabel {
-                color: white;
-                font-size: 18px;
-                font-weight: bold;
-                background-color: rgba(0, 0, 0, 0.5);
-                padding: 10px;
-                border-radius: 5px;
-                margin: 10px;
-            }
-        """)
+        self.subtitle_label.setObjectName(
+            "subtitle_label")  # Set an object name
+
         self.subtitle_label.setWordWrap(True)
         video_layout.addWidget(self.subtitle_label)
         video_layout.setAlignment(self.subtitle_label, Qt.AlignBottom)
@@ -95,18 +89,14 @@ class VideoPlayer(QMainWindow):
         # Store transcript segments
         self.transcript_segments = []
 
-    def load_video(self,video_path,language):
+    def load_video(self, video_path, language):
         # Start playing video
         self.media_player.setSource(QUrl.fromLocalFile(video_path))
         self.media_player.play()
         self.timer.start(100)  # Update more frequently for smoother subtitles
         self.play_pause_button.setText("Pause")
 
-        # Try to load existing transcription
-        if(language == False):
-            transcript_path = "Arabic_transcription.txt"
-        else:
-            transcript_path = "English_transcription.txt"
+        transcript_path = "transcription.txt"
         with open(transcript_path, "r", encoding="utf-8") as f:
             transcription = f.read()
             self.handle_transcription(transcription)
