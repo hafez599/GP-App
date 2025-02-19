@@ -12,7 +12,7 @@ class TranscriptionWorkerAPI(QThread):
         super().__init__()
         self.video_file = video_file
         # FastAPI URL
-        self.api_url = f"https://9011-34-106-150-129.ngrok-free.app/transcribe/?translate={not language}"
+        self.api_url = f"https://76c3-34-87-137-39.ngrok-free.app/transcribe/?translate={not language}"
 
     def run(self):
         """Calls the FastAPI endpoint asynchronously and retrieves the transcript file."""
