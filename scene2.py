@@ -62,7 +62,7 @@ class Scene2(QWidget):
         self.transcription_worker = TranscriptionWorkerAPI(
             video_path, self.language)
         self.transcription_worker.progress.connect(self.update_progress)
-        self.transcription_worker.finished.connect(self.handle_transcription)
+        self.transcription_worker.receive_first_segment.connect(self.handle_transcription) # test this line Finished
         self.transcription_worker.error.connect(self.handle_error)
         self.transcription_worker.start()
         print("TranscriptionWorker started")  # Debug print
