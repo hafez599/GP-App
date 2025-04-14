@@ -14,7 +14,7 @@ class Scene2(QWidget):
 
         # Web Engine View for SVG Animation
         self.webview = QWebEngineView()
-        self.webview.setFixedSize(300, 300)
+        self.webview.setFixedSize(200, 200)
 
         # Create a horizontal layout to center the Web Engine View
         svg_layout = QHBoxLayout()
@@ -26,7 +26,7 @@ class Scene2(QWidget):
         layout.addLayout(svg_layout)
 
         html_file = "animationLoader.html"
-        svg_file = "fade-stagger-circles.svg"
+        svg_file = "tube-spinner.svg"
 
         # Read the SVG file
         with open(svg_file, "r", encoding="utf-8") as file:

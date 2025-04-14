@@ -6,17 +6,18 @@ from filelock import FileLock  # <-- Add filelock import
 
 class TranscriptionWorkerAPI(QThread):
     finished = Signal(str)   # Emitted when all transcription is done
-    receive_first_segment = Signal(str)   # Emitted when all transcription is done
+    receive_first_segment = Signal(str)   # Emitted when first segment transcription is done
     progress = Signal(str)   # Emitted as segments stream in
     error = Signal(str)      # Emitted on any error
 
     def __init__(self, video_file, language):
         super().__init__()
         self.video_file = video_file
-        self.api_url = f"https://d31d-34-125-125-220.ngrok-free.app/transcribe/"
+        self.api_url = f"https://4eab-34-145-8-127.ngrok-free.app/transcribe/"
         self.translate = not language  # True if language=False
         self.transcript_filename = "transcription.txt"
         self.lock = FileLock(self.transcript_filename + ".lock")  # Lock file
+        self.is_first_segemnt = True
 
     def run(self):
         try:
@@ -38,7 +39,7 @@ class TranscriptionWorkerAPI(QThread):
                 if response.status_code != 200:
                     self.error.emit(f"API Error: {response.text}")
                     return
-                self.receive_first_segment.emit("First Segment Received")
+                
 
                 for line in response.iter_lines():
                     if line:
@@ -58,6 +59,9 @@ class TranscriptionWorkerAPI(QThread):
                                 with open(self.transcript_filename, "a", encoding="utf-8") as f:
                                     f.write(text)
                                     f.flush()
+                            if self.is_first_segemnt:
+                                self.receive_first_segment.emit("First Segment Received")
+                                self.is_first_segemnt = False
 
                             self.progress.emit(text)  # Emit each line as progress
                         except Exception as e:

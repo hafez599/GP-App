@@ -1,6 +1,9 @@
-from PySide6.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QCheckBox, QFileDialog
-from PySide6.QtCore import Qt, QSize
-from PySide6.QtGui import QIcon, QFont, QFontDatabase
+from PySide6.QtWidgets import (
+    QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QFileDialog,
+    QRadioButton, QTextEdit, QProgressBar, QSizePolicy, QButtonGroup
+)
+from PySide6.QtGui import QFont
+from PySide6.QtCore import Qt
 
 
 class Scene1(QWidget):
@@ -8,79 +11,82 @@ class Scene1(QWidget):
         super().__init__()
         self.main_window = main_window
         self.video_path = None
+        self.is_arabic = None  # True for Arabic, False for English
 
-        # Load the custom font
-        font_id = QFontDatabase.addApplicationFont(
-            'DancingScript-VariableFont_wght.ttf')
+        # Main layout
+        main_layout = QVBoxLayout(self)
 
-        # Check if the font was successfully loaded
-        if font_id == -1:
-            print("Failed to load font!")
-        else:
-            # Get the font family name (it might be different from the font file name)
-            font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
+        # Title
+        title = QLabel("Auto Subtitle Generator")
+        title.setFont(QFont("Segoe UI", 24, QFont.Bold))
+        title.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(title)
 
-        # Create a QFont object and set the font properties
-        font = QFont()
-        font.setFamily(font_family)  # Set the font family
-        font.setPointSize(36)    # Set the font size
-        font.setBold(True)       # Set the font to bold
-        font.setItalic(False)    # Set the font to not italic
-        font.setUnderline(False)  # Set the font to not underlined
+        # Language Selection (Radio buttons styled like checkboxes)
+        lang_layout = QHBoxLayout()
+        self.arabic_rb = QRadioButton("Arabic")
+        self.english_rb = QRadioButton("English")
 
-        layout = QVBoxLayout()
-        label = QLabel("Please Select The Target Language")
-        # Apply the font to the label
-        label.setFont(font)
-        label.setObjectName("language-label")  # Set an object name
-        label.setAlignment(Qt.AlignCenter)  # Center-align the label\
+        lang_group = QButtonGroup(self)
+        lang_group.setExclusive(True)
+        lang_group.addButton(self.arabic_rb)
+        lang_group.addButton(self.english_rb)
 
-        self.checkbox1 = QCheckBox("Arabic")
-        self.checkbox2 = QCheckBox("English")
+        for rb in (self.arabic_rb, self.english_rb):
+            rb.setFixedSize(120, 60)
+            rb.toggled.connect(self.set_language_selection)
+            lang_layout.addWidget(rb)
 
-        # Create a sub-layout to hold the checkboxes
-        checkbox_layout = QHBoxLayout()
-        checkbox_layout.addWidget(self.checkbox1)
-        checkbox_layout.addWidget(self.checkbox2)
-        self.checkbox1.stateChanged.connect(
-            lambda: self.disable_other_checkbox(self.checkbox1, self.checkbox2))
-        self.checkbox2.stateChanged.connect(
-            lambda: self.disable_other_checkbox(self.checkbox2, self.checkbox1))
+        lang_layout.setSpacing(50)
+        lang_layout.setAlignment(Qt.AlignCenter)
+        main_layout.addLayout(lang_layout)
 
-        # Add the label and checkbox sub-layout to the main layout
-        layout.addWidget(label, alignment=Qt.AlignCenter)
-        layout.addLayout(checkbox_layout, Qt.AlignCenter)
+        # Add Media Button
+        self.media_button = QPushButton("📁 Add Media")
+        self.media_button.clicked.connect(self.upload_video)
+        self.media_button.setObjectName("Add_Media_Button")
+        self.media_button.setFixedHeight(40)
+        self.media_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        main_layout.addWidget(self.media_button)
 
-        # Create Add Media button
-        add_button = QPushButton("Add Media")
-        add_button.setIcon(QIcon(
-            "./PlayIcon.jpg"))  # Add your icon
-        add_button.setIconSize(QSize(24, 24))
-        add_button.clicked.connect(self.load_video)
+        # File path display
+        self.file_path_display = QTextEdit()
+        self.file_path_display.setReadOnly(True)
+        self.file_path_display.setFixedHeight(50)
+        self.file_path_display.setPlaceholderText("No video selected...")
+        main_layout.addWidget(self.file_path_display)
 
-        layout.addWidget(add_button, alignment=Qt.AlignCenter)
-        self.setLayout(layout)
-        self.input_field = QLineEdit()
-        button = QPushButton("Start")
-        button.clicked.connect(self.send_data)
+        # Start button
+        self.start_button = QPushButton("▶ Start Transcription")
+        self.start_button.setObjectName("Start_button")
+        self.start_button.setFixedHeight(50)
+        self.start_button.setEnabled(False)
+        self.start_button.clicked.connect(self.send_data)
+        main_layout.addWidget(self.start_button)
 
-        layout.addWidget(self.input_field)
-        layout.addWidget(button)
-        self.setLayout(layout)
+        # Progress bar
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setValue(0)
+        self.progress_bar.setVisible(False)
+        main_layout.addWidget(self.progress_bar)
 
-    def load_video(self):
-        file_dialog = QFileDialog(self)
-        self.video_path, _ = file_dialog.getOpenFileName(
-            self, "Open Video File", "", "Videos (*.mp4 *.avi *.mkv)")
-        print(self.video_path)
+    def upload_video(self):
+        file_dialog = QFileDialog()
+        video_path, _ = file_dialog.getOpenFileName(
+            self, "Select Video File", "", "Video Files (*.mp4 *.avi *.mov)"
+        )
+        if video_path:
+            self.video_path = video_path  # Store selected video path
+            self.file_path_display.clear()
+            self.file_path_display.setText(video_path)
+            self.start_button.setEnabled(True)
 
-    def disable_other_checkbox(self, checked_checkbox, other_checkbox):
-        if checked_checkbox.isChecked():
-            other_checkbox.setChecked(False)
-            other_checkbox.setEnabled(False)
-        else:
-            other_checkbox.setEnabled(True)
+    def set_language_selection(self):
+        if self.arabic_rb.isChecked():
+            self.is_arabic = True
+        elif self.english_rb.isChecked():
+            self.is_arabic = False
 
     def send_data(self):
-        self.main_window.switch_to_scene2(
-            self.video_path, self.checkbox2.isChecked())
+        if self.video_path is not None:
+            self.main_window.switch_to_scene2(self.video_path, self.is_arabic)
