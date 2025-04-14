@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QProgressBar
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtCore import Qt
 from TranscriptionWorkerAPI import TranscriptionWorkerAPI
@@ -42,6 +42,14 @@ class Scene2(QWidget):
         # Load into QWebEngineView
         self.webview.setHtml(final_html)
 
+        # Progress bar
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setMinimum(0)
+        self.progress_bar.setMaximum(100)
+        self.progress_bar.setValue(0)
+        self.progress_bar.setTextVisible(True)
+        layout.addWidget(self.progress_bar)
+
         # Back button
         button = QPushButton("Back")
         button.clicked.connect(self.main_window.switch_to_scene1)
@@ -62,7 +70,8 @@ class Scene2(QWidget):
         self.transcription_worker = TranscriptionWorkerAPI(
             video_path, self.language)
         self.transcription_worker.progress.connect(self.update_progress)
-        self.transcription_worker.receive_first_segment.connect(self.handle_transcription) # test this line Finished
+        self.transcription_worker.receive_first_segment.connect(
+            self.handle_transcription)  # test this line Finished
         self.transcription_worker.error.connect(self.handle_error)
         self.transcription_worker.start()
         print("TranscriptionWorker started")  # Debug print
@@ -77,5 +86,12 @@ class Scene2(QWidget):
         print(f"Error received: {error_message}")  # Debug print
 
     def update_progress(self, message):
-        """Updates transcription progress"""
-        print(f"Progress update: {message}")  # Debug print
+        print(f"Progress update: {message}")
+        if message.startswith("Uploading:"):
+            percent = int(message.split(":")[1].replace("%", "").strip())
+            self.progress_bar.setValue(percent)
+        else:
+            # Optional: fake incremental updates for transcription
+            current = self.progress_bar.value()
+            self.progress_bar.setValue(min(100, current + 1))
+

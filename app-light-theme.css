@@ -31,49 +31,6 @@ QLabel#subtitle_label {
 	margin: 10px;
 }
 
-QCheckBox {
-	background-color: #1c1c1e;
-	/* Dark background for the unselected state */
-	color: #ffffff;
-	/* Text color for unselected state */
-	border: 2px solid #3a3a3c;
-	/* Subtle border */
-	border-radius: 10px;
-	/* Rounded corners */
-	padding: 10px;
-	font-size: 26px;
-	text-align: center;
-	/* min-width: 50px; */
-	max-width: 100px;
-	min-height: 50px;
-}
-
-QCheckBox:hover {
-	border: 2px solid #007aff;
-	/* Highlight border on hover */
-}
-
-QCheckBox:checked {
-	background-color: #007aff;
-	/* Blue background for selected state */
-	color: white;
-	/* White text for selected state */
-	border: 2px solid #0056b3;
-	/* Darker border for selected state */
-}
-
-QCheckBox::indicator {
-	width: 0px;
-	/* Set width to 0 */
-	height: 0px;
-	/* Set height to 0 */
-	background: none;
-	/* Ensure no background is displayed */
-	border: none;
-	/* Remove any border */
-	margin: 0px;
-	/* Remove any margin or padding */
-}
 
 QPushButton#Add_Media_Button {
 	background-color: #0078d7;
@@ -94,6 +51,7 @@ QPushButton#Start_button {
 	padding: 12px;
 	border-radius: 5px;
 }
+
 QPushButton#Start_button:hover {
 	background-color: #005fa3;
 }
@@ -105,11 +63,25 @@ QRadioButton {
 	font-size: 18px;
 	border-radius: 10px;
 }
+
+QRadioButton:hover {
+	background-color: #464545;
+}
+
 QRadioButton::indicator {
 	width: 0px;
+	/* Set width to 0 */
 	height: 0px;
+	/* Set height to 0 */
+	background: none;
+	/* Ensure no background is displayed */
+	border: none;
+	/* Remove any border */
+	margin: 0px;
+	/* Remove any margin or padding */
 }
+
 QRadioButton:checked {
-	background-color: #0b71df;
+	background-color: #105eb1;
 	font-weight: bold;
 }
