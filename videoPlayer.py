@@ -7,13 +7,15 @@ from PySide6.QtWidgets import (QMainWindow, QVBoxLayout, QPushButton,
 from PySide6.QtCore import QUrl, Qt, QTimer
 from filelock import FileLock, Timeout
 
+
 class VideoPlayer(QMainWindow):
     def __init__(self, main_window):
         super().__init__()
         self.main_window = main_window
         self.resize(800, 600)
         self.update_counter = 0
-        self.update_interval = 10  # Check every 10 ticks = ~1 second (timer is 100ms)
+        # Check every 10 ticks = ~1 second (timer is 100ms)
+        self.update_interval = 10
         self.manual_position_update = False
 
         # Create central widget and layout
@@ -28,12 +30,14 @@ class VideoPlayer(QMainWindow):
 
         # Video widget
         self.video_widget = QVideoWidget()
-        self.video_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.video_widget.setSizePolicy(
+            QSizePolicy.Expanding, QSizePolicy.Expanding)
         video_layout.addWidget(self.video_widget)
 
         # Subtitle label
         self.subtitle_label = QLabel()
-        self.subtitle_label.setStyleSheet("background-color: rgba(0, 0, 0, 128); color: white; font-size: 16px; padding: 4px;")
+        self.subtitle_label.setStyleSheet(
+            "background-color: rgba(0, 0, 0, 128); color: white; font-size: 16px; padding: 4px;")
         self.subtitle_label.setAlignment(Qt.AlignCenter)
         self.subtitle_label.setObjectName("subtitle_label")
         self.subtitle_label.setWordWrap(True)
@@ -96,10 +100,10 @@ class VideoPlayer(QMainWindow):
         self.media_player.play()
         self.timer.start(100)
         self.play_pause_button.setText("Pause")
-        
+
         # Initialize transcript segments
         self.transcript_segments = []
-        
+
         # Try to read existing transcription if available
         try:
             transcript_path = "transcription.txt"
@@ -129,7 +133,7 @@ class VideoPlayer(QMainWindow):
                 except Exception as e:
                     print(f"Error parsing line: {line}")
                     continue
-        
+
         # Only update if we have new segments
         if new_segments:
             self.transcript_segments = new_segments
@@ -143,11 +147,11 @@ class VideoPlayer(QMainWindow):
             if segment['start'] <= current_time <= segment['end']:
                 current_text = segment['text']
                 break
-        
+
         # Update only if text changes
         if self.subtitle_label.text() != current_text:
             self.subtitle_label.setText(current_text)
-        
+
         self.update_counter += 1
         if self.update_counter >= self.update_interval:
             self.update_counter = 0
@@ -159,10 +163,10 @@ class VideoPlayer(QMainWindow):
             transcript_path = "transcription.txt"
             if not os.path.exists(transcript_path):
                 return
-            
+
             # Store current position
             current_position = self.media_player.position()
-            
+
             try:
                 lock = FileLock(transcript_path + ".lock", timeout=0.5)
                 with lock:
@@ -173,7 +177,8 @@ class VideoPlayer(QMainWindow):
                             if line:
                                 try:
                                     time_str, text = line.split(']', 1)
-                                    time_str = time_str[1:]  # Remove leading '['
+                                    # Remove leading '['
+                                    time_str = time_str[1:]
                                     start_str, end_str = time_str.split('-')
                                     start = float(start_str.strip())
                                     end = float(end_str.strip())
@@ -185,14 +190,14 @@ class VideoPlayer(QMainWindow):
                                 except Exception as e:
                                     print(f"Error parsing line: {line}")
                                     continue
-                        
+
                         if new_segments:
                             self.transcript_segments = new_segments
                             self.progress_bar.hide()
             except Timeout:
                 print("Transcription file locked, will retry later")
                 return
-            
+
             # Restore position if changed
             if self.media_player.position() != current_position:
                 self.manual_position_update = True
@@ -233,6 +238,6 @@ class VideoPlayer(QMainWindow):
         self.manual_position_update = True
         self.media_player.setPosition(position)
         QTimer.singleShot(100, self._reset_position_flag)
-    
+
     def _reset_position_flag(self):
         self.manual_position_update = False

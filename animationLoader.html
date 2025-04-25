@@ -1,28 +1,39 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
     <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style>
+            html,
             body {
-                background-color: #f2f2f2;
-                /* Change to any color */
                 margin: 0;
                 padding: 0;
+                height: 100%;
+                width: 100%;
                 overflow: hidden;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
+                background-color: #f2f2f2;
             }
 
-            svg {
-                width: 100%;
-                height: 100%;
+            dotlottie-player {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: #f2f2f2;
+                position: relative;
+                transform: scale(1.4);
             }
         </style>
+        <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+            type="module"></script>
     </head>
 
     <body>
-        {SVG_CONTENT}
+        <dotlottie-player src="https://lottie.host/26147e02-643c-4a0d-8b7c-20d6c1407ecf/4ryvJsk7p6.lottie"
+            background="transparent" speed="1" loop autoplay>
+        </dotlottie-player>
     </body>
 
 </html>

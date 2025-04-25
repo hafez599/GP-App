@@ -16,11 +16,12 @@ class TranscriptionWorkerAPI(QThread):
     def __init__(self, video_file, language):
         super().__init__()
         self.video_file = video_file
-        self.api_url = f"https://bf2c-35-240-248-88.ngrok-free.app/transcribe/"
-        self.translate = not language  # True if language=False
+        self.api_url = f"https://3dba-34-125-221-11.ngrok-free.app/transcribe/"
+        self.translate = language
         self.transcript_filename = "transcription.txt"
         self.lock = FileLock(self.transcript_filename + ".lock")  # Lock file
         self.is_first_segment = True
+        self._is_running = True  # Flag to check if the thread is running
 
     def run(self):
         try:
@@ -40,6 +41,8 @@ class TranscriptionWorkerAPI(QThread):
                 )
 
                 def callback(monitor):
+                    if not self._is_running:  # Stop if the thread is not running
+                        monitor.abort()
                     percent = int((monitor.bytes_read / monitor.len) * 100)
                     self.progress.emit(f"Uploading: {percent}%")
 
@@ -60,6 +63,8 @@ class TranscriptionWorkerAPI(QThread):
                     return
 
                 for line in response.iter_lines():
+                    if not self._is_running:  # Stop processing if the thread is not running
+                        break
                     if line:
                         try:
                             segment = json.loads(line)
@@ -93,3 +98,11 @@ class TranscriptionWorkerAPI(QThread):
 
         except Exception as e:
             self.error.emit(f"Request failed: {str(e)}")
+
+    def stop(self):
+        """Stop the transcription process and cleanup."""
+        print("Stopping transcription worker...")
+        self._is_running = False  # Flag the thread to stop
+        self.terminate()  # Terminate the thread (be careful with terminate in long-running tasks)
+        self.wait()  # Wait for the thread to finish
+        print("Transcription worker stopped.")

@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QFileDialog,
-    QRadioButton, QTextEdit, QProgressBar, QSizePolicy, QButtonGroup
+    QRadioButton, QTextEdit, QSizePolicy, QButtonGroup
 )
 from PySide6.QtGui import QFont, QPixmap, QImage
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 import cv2
 
 
@@ -28,10 +28,10 @@ class Scene1(QWidget):
         self.arabic_rb = QRadioButton("Arabic")
         self.english_rb = QRadioButton("English")
 
-        lang_group = QButtonGroup(self)
-        lang_group.setExclusive(True)
-        lang_group.addButton(self.arabic_rb)
-        lang_group.addButton(self.english_rb)
+        self.lang_group = QButtonGroup(self)
+        self.lang_group.setExclusive(True)
+        self.lang_group.addButton(self.arabic_rb)
+        self.lang_group.addButton(self.english_rb)
 
         for rb in (self.arabic_rb, self.english_rb):
             rb.setFixedSize(120, 60)
@@ -41,6 +41,15 @@ class Scene1(QWidget):
         lang_layout.setSpacing(50)
         lang_layout.setAlignment(Qt.AlignCenter)
         main_layout.addLayout(lang_layout)
+
+        # Warning label for language selection
+        self.language_warning = QLabel("⚠ Please select a language!")
+        self.language_warning.setAlignment(Qt.AlignCenter)
+        self.language_warning.setFixedHeight(50)  # Prevent layout jump
+        self.language_warning.setVisible(False)
+        self.language_warning.setObjectName("warning")
+
+        main_layout.addWidget(self.language_warning)
 
         # Add Media Button
         self.media_button = QPushButton("📁 Add Media")
@@ -116,5 +125,10 @@ class Scene1(QWidget):
             self.is_arabic = False
 
     def send_data(self):
-        if self.video_path is not None:
+        if self.video_path is not None and self.lang_group.checkedButton() is not None:
             self.main_window.switch_to_scene2(self.video_path, self.is_arabic)
+        else:
+            # Show warning message for 3 seconds
+            self.language_warning.setVisible(True)
+            QTimer.singleShot(
+                3000, lambda: self.language_warning.setVisible(False))
