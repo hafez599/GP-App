@@ -16,7 +16,7 @@ class TranscriptionWorkerAPI(QThread):
     def __init__(self, video_file, language):
         super().__init__()
         self.video_file = video_file
-        self.api_url = f"https://3dba-34-125-221-11.ngrok-free.app/transcribe/"
+        self.api_url = f"https://29a5-35-201-231-119.ngrok-free.app/transcribe/"
         self.translate = language
         self.transcript_filename = "transcription.txt"
         self.lock = FileLock(self.transcript_filename + ".lock")  # Lock file

@@ -1,4 +1,9 @@
 /* Light Theme Styles */
+
+QMainWindow {
+	background-color: #1e1e1e;
+}
+
 QWidget {
 	background-color: #f2f2f2;
 	color: #333333;
@@ -129,4 +134,122 @@ QPushButton#CancelButton {
 
 QPushButton#CancelButton :hover {
 	background-color: #d32f2f;
+}
+
+/* //////////////////// videoPlayer //////////////////////////// */
+QWidget#central_widget {
+	background-color: #1e1e1e;
+}
+
+QWidget#video_container {
+	background-color: #1e1e1e;
+}
+
+QVideoWidget#video_widget {
+	background-color: black;
+}
+
+QWidget#control_bar {
+	background-color: #1e1e1e;
+}
+
+QWidget#volume_container {
+	background-color: #1e1e1e;
+}
+
+QPushButton#play_button {
+	background-color: #2a2a2a;
+	color: #b0b0b0;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	padding: 5px;
+	min-width: 30px;
+	min-height: 30px;
+}
+
+QPushButton#play_button:hover {
+	background-color: #3a3a3a;
+}
+
+QSlider {
+	background: none;
+}
+
+QSlider#progress_slider::groove:horizontal {
+	height: 7px;
+	background: #666;
+	border-radius: 3px;
+}
+
+QSlider#progress_slider::handle:horizontal {
+	background: #f5c518;
+	border: 1px solid #f5c518;
+	width: 12px;
+	height: 12px;
+	margin: -4px 0;
+	border-radius: 6px;
+}
+
+QSlider#progress_slider::sub-page:horizontal {
+	background: #f5c518;
+	border-radius: 3px;
+}
+
+QSlider#progress_slider::add-page:horizontal {
+	background: #666;
+	border-radius: 3px;
+}
+
+QPushButton#volume_button {
+	background-color: #2a2a2a;
+	color: #b0b0b0;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	padding: 5px;
+	min-width: 30px;
+	min-height: 30px;
+}
+
+QPushButton#volume_button:hover {
+	background-color: #3a3a3a;
+}
+
+QSlider#volume_slider {
+	background: transparent;
+	padding: 0px;
+}
+
+QSlider#volume_slider::groove:horizontal {
+	height: 4px;
+	background: #4a4a4a;
+	border-radius: 2px;
+}
+
+QSlider#volume_slider::handle:horizontal {
+	background: #b0b0b0;
+	border: 2px solid #1e1e1e;
+	width: 14px;
+	height: 14px;
+	margin: -5px 0;
+	border-radius: 7px;
+}
+
+QSlider#volume_slider::sub-page:horizontal {
+	background: #b0b0b0;
+	border-radius: 2px;
+}
+
+QSlider#volume_slider::add-page:horizontal {
+	background: #4a4a4a;
+	border-radius: 2px;
+}
+
+QLabel#subtitle_label {
+	background-color: rgba(0, 0, 0, 128);
+	color: white;
+	font-size: 16px;
+	padding: 8px;
+	margin-bottom: 10px;
 }

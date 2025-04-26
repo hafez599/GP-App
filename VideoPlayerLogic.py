@@ -1,105 +1,62 @@
 import os
-from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
-from PySide6.QtMultimediaWidgets import QVideoWidget
-from PySide6.QtWidgets import (QMainWindow, QVBoxLayout, QPushButton,
-                               QWidget, QSlider, QHBoxLayout, QProgressBar, QSizePolicy,
-                               QLabel)
-from PySide6.QtCore import QUrl, Qt, QTimer
+from PySide6.QtMultimedia import QMediaPlayer
+from PySide6.QtCore import QTimer, QUrl
 from filelock import FileLock, Timeout
+from VideoPlayerUI import VideoPlayerUI
 
 
-class VideoPlayer(QMainWindow):
+class VideoPlayerLogic(VideoPlayerUI):
     def __init__(self, main_window):
-        super().__init__()
-        self.main_window = main_window
-        self.resize(800, 600)
+        super().__init__(main_window)
         self.update_counter = 0
         # Check every 10 ticks = ~1 second (timer is 100ms)
         self.update_interval = 10
         self.manual_position_update = False
 
-        # Create central widget and layout
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        layout = QVBoxLayout(central_widget)
+        # Store transcript segments
+        self.transcript_segments = []
 
-        # Create a container widget for video and subtitles
-        video_container = QWidget()
-        video_layout = QVBoxLayout(video_container)
-        video_layout.setContentsMargins(0, 0, 0, 0)
-
-        # Video widget
-        self.video_widget = QVideoWidget()
-        self.video_widget.setSizePolicy(
-            QSizePolicy.Expanding, QSizePolicy.Expanding)
-        video_layout.addWidget(self.video_widget)
-
-        # Subtitle label
-        self.subtitle_label = QLabel()
-        self.subtitle_label.setStyleSheet(
-            "background-color: rgba(0, 0, 0, 128); color: white; font-size: 16px; padding: 4px;")
-        self.subtitle_label.setAlignment(Qt.AlignCenter)
-        self.subtitle_label.setObjectName("subtitle_label")
-        self.subtitle_label.setWordWrap(True)
-        video_layout.addWidget(self.subtitle_label)
-        video_layout.setAlignment(self.subtitle_label, Qt.AlignBottom)
-
-        layout.addWidget(video_container)
-
-        # Media player setup
-        self.media_player = QMediaPlayer()
-        self.audio_output = QAudioOutput()
-        self.media_player.setAudioOutput(self.audio_output)
-        self.media_player.setVideoOutput(self.video_widget)
-
-        # Controls layout
-        controls_layout = QHBoxLayout()
-
-        # Play/Pause button
-        self.play_pause_button = QPushButton("Play")
-        self.play_pause_button.clicked.connect(self.toggle_play_pause)
-        controls_layout.addWidget(self.play_pause_button)
-
-        # Position slider
-        self.position_slider = QSlider(Qt.Horizontal)
-        self.position_slider.setRange(0, 1000)
-        self.position_slider.sliderMoved.connect(self.set_video_position)
-        controls_layout.addWidget(self.position_slider)
-
-        layout.addLayout(controls_layout)
-
-        # Progress bar for transcription
-        self.progress_bar = QProgressBar()
-        self.progress_bar.setTextVisible(True)
-        self.progress_bar.hide()
-        layout.addWidget(self.progress_bar)
-
-        # Volume slider
-        self.volume_slider = QSlider(Qt.Horizontal)
-        self.volume_slider.setRange(0, 100)
-        self.volume_slider.setValue(50)
+        # Connect signals
+        self.play_button.clicked.connect(self.toggle_play_pause)
+        self.progress_slider.sliderMoved.connect(self.set_video_position)
+        self.volume_button.clicked.connect(self.toggle_volume_slider)
         self.volume_slider.valueChanged.connect(self.change_volume)
-        layout.addWidget(self.volume_slider)
 
-        # Timer and signals
+        # Timer for slider tracking and subtitle updates
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_position_slider)
         self.timer.timeout.connect(self.check_subtitle)
         self.media_player.durationChanged.connect(self.update_duration)
         self.media_player.positionChanged.connect(self.update_position)
 
-        # Set default volume
-        self.audio_output.setVolume(0.5)
+        # Set default volume and update icon
+        self.audio_output.setVolume(0.5)  # Corresponds to 50% on the slider
+        self.update_volume_icon(50)  # Set initial icon based on default volume
 
-        # Store transcript segments
-        self.transcript_segments = []
+    def toggle_volume_slider(self):
+        """Show or hide the volume slider when the volume button is clicked"""
+        self.volume_slider.setVisible(not self.volume_slider.isVisible())
+
+    def update_volume_icon(self, volume):
+        """Update the volume button icon based on the volume level"""
+        if volume == 0:
+            self.volume_button.setText("🔇")
+        elif volume < 50:
+            self.volume_button.setText("🔉")
+        else:
+            self.volume_button.setText("🔊")
+
+    def change_volume(self, value):
+        """Adjust the volume based on the slider value and update the icon"""
+        self.audio_output.setVolume(value / 100.0)
+        self.update_volume_icon(value)
 
     def load_video(self, video_path, language):
         # Start playing video
         self.media_player.setSource(QUrl.fromLocalFile(video_path))
         self.media_player.play()
-        self.timer.start(100)
-        self.play_pause_button.setText("Pause")
+        self.timer.start(100)  # Start timer to update slider
+        self.play_button.setText("⏸")
 
         # Initialize transcript segments
         self.transcript_segments = []
@@ -137,7 +94,6 @@ class VideoPlayer(QMainWindow):
         # Only update if we have new segments
         if new_segments:
             self.transcript_segments = new_segments
-            self.progress_bar.hide()
 
     def check_subtitle(self):
         """Check for new transcription file and update subtitle display"""
@@ -193,7 +149,6 @@ class VideoPlayer(QMainWindow):
 
                         if new_segments:
                             self.transcript_segments = new_segments
-                            self.progress_bar.hide()
             except Timeout:
                 print("Transcription file locked, will retry later")
                 return
@@ -207,34 +162,35 @@ class VideoPlayer(QMainWindow):
             print(f"Error refreshing transcription: {e}")
 
     def update_progress(self, message):
-        self.progress_bar.show()
-        self.progress_bar.setFormat(message)
+        # Note: progress_bar is not defined in this version
+        pass
 
     def toggle_play_pause(self):
         if self.media_player.playbackState() == QMediaPlayer.PlayingState:
             self.media_player.pause()
-            self.play_pause_button.setText("Play")
+            self.play_button.setText("▶")
         else:
             self.media_player.play()
-            self.play_pause_button.setText("Pause")
-
-    def change_volume(self, value):
-        self.audio_output.setVolume(value / 100)
+            self.play_button.setText("⏸")
 
     def update_duration(self, duration):
-        self.position_slider.setRange(0, duration)
+        """Set the slider range to the video duration"""
+        self.progress_slider.setRange(0, duration)
 
     def update_position(self, position):
+        """Update the slider position as the video plays"""
         if position == 0 and self.media_player.playbackState() == QMediaPlayer.PlayingState:
             print("Warning: Video position reset to 0 unexpectedly")
         if not self.manual_position_update:
-            self.position_slider.setValue(position)
+            self.progress_slider.setValue(position)
 
     def update_position_slider(self):
+        """Update the slider position periodically"""
         if not self.manual_position_update:
-            self.position_slider.setValue(self.media_player.position())
+            self.progress_slider.setValue(self.media_player.position())
 
     def set_video_position(self, position):
+        """Seek the video when the slider is moved"""
         self.manual_position_update = True
         self.media_player.setPosition(position)
         QTimer.singleShot(100, self._reset_position_flag)

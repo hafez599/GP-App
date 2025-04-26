@@ -88,7 +88,7 @@ class Scene2(QWidget):
 
     def handle_transcription(self):
         print("Received transcription")
-        self.main_window.switch_to_VideoPlayer(self.video_path, self.language)
+        self.main_window.switch_to_video_player(self.video_path, self.language)
 
     def handle_error(self, error_message):
         print(f"Error received: {error_message}")
