@@ -40,3 +40,6 @@ build/
 
 # Ignore system-wide files
 *.swp
+
+# Ignore temp folder with UUID-like subfolders
+temp/

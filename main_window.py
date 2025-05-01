@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QMainWindow, QStackedWidget
+from TranscriptionServer.server import TranscriptionServer
 from scene1 import Scene1
 from scene2 import Scene2
 from VideoPlayerLogic import VideoPlayerLogic  # Updated import
@@ -12,6 +13,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.transcription_server = TranscriptionServer()
 
         # Initialize window properties
         self.setWindowTitle("Video Player with Subtitles")
@@ -23,7 +25,7 @@ class MainWindow(QMainWindow):
 
         # Initialize scenes
         self.scene1 = Scene1(self)
-        self.scene2 = Scene2(self)
+        self.scene2 = Scene2(self, self.transcription_server)
         # Use VideoPlayerLogic instead of VideoPlayerUI
         self.video_player = VideoPlayerLogic(self)
 

@@ -4,12 +4,14 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtCore import Qt
+from TranscriptionServer.server import TranscriptionServer
 from TranscriptionWorkerAPI import TranscriptionWorkerAPI
 
 
 class Scene2(QWidget):
-    def __init__(self, main_window, video_path=None, language=None):
+    def __init__(self, main_window,transcription_server, video_path=None, language=None):
         super().__init__()
+        self.transcription_server = transcription_server
         self.main_window = main_window
         self.transcription_worker = None
 
@@ -78,7 +80,7 @@ class Scene2(QWidget):
             return
 
         self.transcription_worker = TranscriptionWorkerAPI(
-            video_path, self.language)
+            video_path, self.language, self.transcription_server)
         self.transcription_worker.progress.connect(self.update_progress)
         self.transcription_worker.receive_first_segment.connect(
             self.handle_transcription)

@@ -2,8 +2,9 @@ from PySide6.QtCore import QThread, Signal
 import requests
 import os
 import json
-from filelock import FileLock  # <-- Add filelock import
+from filelock import FileLock
 from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
+import time
 
 
 class TranscriptionWorkerAPI(QThread):
@@ -13,18 +14,45 @@ class TranscriptionWorkerAPI(QThread):
     progress = Signal(str)   # Emitted as segments stream in
     error = Signal(str)      # Emitted on any error
 
-    def __init__(self, video_file, language):
+    def __init__(self, video_file, language, transcription_server):
         super().__init__()
         self.video_file = video_file
-        self.api_url = f"https://29a5-35-201-231-119.ngrok-free.app/transcribe/"
+        # Use the server's port if provided, otherwise default to 8000
+        self.api_url = f"http://localhost:{transcription_server.port if transcription_server else 800}/transcribe/"
         self.translate = language
         self.transcript_filename = "transcription.txt"
-        self.lock = FileLock(self.transcript_filename + ".lock")  # Lock file
+        self.lock = FileLock(self.transcript_filename + ".lock")
         self.is_first_segment = True
-        self._is_running = True  # Flag to check if the thread is running
+        self._is_running = True
+        # Reference to TranscriptionServer instance
+        self.transcription_server = transcription_server
 
     def run(self):
         try:
+            # Start the transcription server if provided
+            if self.transcription_server:
+                self.transcription_server.start()
+                # Wait for the server to be ready
+                max_attempts = 30  # Wait up to 30 seconds (30 * 1s)
+                attempt = 0
+                while attempt < max_attempts:
+                    try:
+                        response = requests.get(
+                            f"http://localhost:{self.transcription_server.port}", timeout=2)
+                        if response.status_code == 200:
+                            print(
+                                f"Server is ready on port {self.transcription_server.port}")
+                            break
+                    except requests.exceptions.RequestException:
+                        attempt += 1
+                        time.sleep(1)  # Wait 1 second before retrying
+                        if attempt == max_attempts:
+                            self.error.emit(
+                                "Server failed to start within the timeout period.")
+                            return
+                    else:
+                        break
+
             if os.path.exists(self.transcript_filename):
                 os.remove(self.transcript_filename)
                 print(f"{self.transcript_filename} has been deleted.")
@@ -41,13 +69,12 @@ class TranscriptionWorkerAPI(QThread):
                 )
 
                 def callback(monitor):
-                    if not self._is_running:  # Stop if the thread is not running
+                    if not self._is_running:
                         monitor.abort()
                     percent = int((monitor.bytes_read / monitor.len) * 100)
                     self.progress.emit(f"Uploading: {percent}%")
 
                 monitor = MultipartEncoderMonitor(encoder, callback)
-
                 headers = {"Content-Type": monitor.content_type}
 
                 response = requests.post(
@@ -63,23 +90,18 @@ class TranscriptionWorkerAPI(QThread):
                     return
 
                 for line in response.iter_lines():
-                    if not self._is_running:  # Stop processing if the thread is not running
+                    if not self._is_running:
                         break
                     if line:
                         try:
                             segment = json.loads(line)
-
-                            # Round time fields
                             segment["start_time"] = round(
                                 segment.get("start_time", 0), 3)
                             segment["end_time"] = round(
                                 segment.get("end_time", 0), 3)
                             preference = 'arabic' if self.translate else 'english'
-
-                            # Compose readable format
                             text = f"[{segment['start_time']} - {segment['end_time']}] {segment[preference]}\n"
 
-                            # Safely write to file using file lock
                             with self.lock:
                                 with open(self.transcript_filename, "a", encoding="utf-8") as f:
                                     f.write(text)
@@ -89,7 +111,6 @@ class TranscriptionWorkerAPI(QThread):
                                     "First Segment Received")
                                 self.is_first_segment = False
 
-                            # Emit each line as progress
                             self.progress.emit(text)
                         except Exception as e:
                             self.error.emit(f"Streaming decode error: {e}")
@@ -98,11 +119,15 @@ class TranscriptionWorkerAPI(QThread):
 
         except Exception as e:
             self.error.emit(f"Request failed: {str(e)}")
+        finally:
+            # Stop the server if it was started
+            if self.transcription_server:
+                self.transcription_server.stop()
 
     def stop(self):
         """Stop the transcription process and cleanup."""
         print("Stopping transcription worker...")
-        self._is_running = False  # Flag the thread to stop
-        self.terminate()  # Terminate the thread (be careful with terminate in long-running tasks)
-        self.wait()  # Wait for the thread to finish
+        self._is_running = False
+        self.terminate()
+        self.wait()
         print("Transcription worker stopped.")
