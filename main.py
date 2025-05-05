@@ -6,7 +6,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
 
     # Load the light theme stylesheet
-    with open('app-light-theme.css', 'r') as f:
+    with open('app-theme.css', 'r') as f:
         app.setStyleSheet(f.read())
 
     window = MainWindow()

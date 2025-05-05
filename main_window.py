@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QMainWindow, QStackedWidget
 from TranscriptionComponents.server import TranscriptionServer
 from scene1 import Scene1
 from scene2 import Scene2
-from VideoPlayerLogic import VideoPlayerLogic  # Updated import
+from VideoPlayerLogic import VideoPlayerLogic
 
 
 class MainWindow(QMainWindow):
@@ -26,7 +26,6 @@ class MainWindow(QMainWindow):
         # Initialize scenes
         self.scene1 = Scene1(self)
         self.scene2 = Scene2(self, self.transcription_server)
-        # Use VideoPlayerLogic instead of VideoPlayerUI
         self.video_player = VideoPlayerLogic(self)
 
         # Add scenes to the stacked widget

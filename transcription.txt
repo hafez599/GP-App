@@ -1,22 +1,45 @@
-[0.0 - 7.0] مرحبا!
-[7.26 - 10.26] ومرحباً بكم في فريق (لوس بويوس أرمانوس)
-[10.26 - 13.26] اسمي غوستافو، ولكن يمكنك مناداتي جوس.
-[13.26 - 16.26] أنا من خلال ذلك عليك أن تكون الانضمام إلى فريقنا.
-[16.26 - 22.26] كل يوم ونحن نخدم عملائنا طعام استثنائي مع خدمة مؤثرة.
-[22.26 - 24.26] نحن نفخر بكل ما نقوم به.
-[24.26 - 30.26] وبعد هذه الحلقة الدراسية على الانترنت لمدة 10 أسابيع، وأنا واثق من أنك سوف تناسب الحق في.
-[30.62 - 34.18] أحب أن أعتقد أنني أرى الأشياء في الناس.
-[34.18 - 39.18] بادئ ذي بدء ، أود أن أتحدث عن حجر الزاوية في العلامة التجارية لوس بولوس ومانوس.
-[39.23 - 44.63] التواصل. كموظف في لوس بويوس ومانوس ، قمت بتعيين نغمة لكامل
-[44.63 - 49.67] تجربة تناول الطعام. ضع في اعتبارك ما تتواصل به كلماتك وسلوكك مع
-[49.67 - 53.95] الضيوف. كن دائما على بينة من الموقف الخاص بك. تذكر أن تقف على التوالي. الخاص بك
-[53.95 - 58.83] العملاء وظهرك سوف أشكركم على ذلك. بذل الجهد في مظهرك.
-[58.83 - 64.35] يُطلب من جميع الموظفين ارتداء الملابس المناسبة. حافظ على الزي الرسمي الخاص بك نظيفًا
-[64.35 - 69.17] إذا كنت تريد الاحترام، يجب أن تتحرك. الاحترام.
-[69.17 - 76.37] التحدث في جمل كاملة، ونحن لا تستخدم كلمة واحدة تحيات مثل مهلا، أو نعم، دائما
-[76.37 - 77.97] جعل اتصال العين.
-[77.97 - 82.17] وأخيرا، سواء كنت مع عميل أم لا، تبقى تتألف.
-[82.17 - 88.49] في الداخل ، يمكنك التفكير في واجباتك المنزلية ، أو أصدقائك ، أو أعمالك التجارية.
-[88.49 - 92.61] ولكن لا أحد يجب أن يعرف ذلك لأنه في لوس بويوس مانوس، بعض...
-[93.33 - 95.33] يراقب دائما.
-[95.71 - 102.71] لذلك لا تنسى أن تبتسم. هذا كل شيء لهذا اليوم. أراك في المرة القادمة. سنناقش النظافة.
+[0.0 - 5.36] Hey what's going on guys welcome back to another video. So this is a two hours long express crash
+[5.36 - 10.64] course for beginners and in this video we will build a node express project from scratch. Let
+[10.64 - 14.88] me show you the topics that we are going to build in this video. So we will first start with the
+[14.88 - 19.92] express project setup and then we will move to how we can create an express server. We will
+[19.92 - 24.64] also see how we can install the thunder client to test our apis. Then we will set up the
+[24.64 - 29.68] express router and after that we will see that how we can handle error in express and using
+[29.68 - 34.72] the async handler. Then we are going to see how we can set up the express middleware for our project.
+[34.72 - 39.76] After that we will have the mongo dv setup and then we will learn how we can use mongo's schema in
+[39.76 - 44.8] order to communicate with our database. Then we will see how we can have the prod api in our
+[44.8 - 49.2] project. Next topic that we will cover is the user authentication. We will see how we can
+[49.2 - 53.76] authenticate our users and we will have the registration and the login endpoints. Then
+[53.76 - 58.32] we will see how we can have the controllers which will help us to communicate with our database
+[58.32 - 63.04] for different operations. Then we will see how we can do the password hashing and then
+[63.04 - 68.64] compare the hash password with the raw password. Then we will also use the JWT token. So we are
+[68.64 - 74.32] going to have the sign in and verify of the JWT token for the authentication part. Then we will
+[74.32 - 79.6] see how we can handle the relationship using mongo's schema for our different documents in our
+[79.6 - 84.48] mongo dv. Then we are going to see how we can do the protected routes. So on the authenticated
+[84.48 - 89.44] user we will be able to access those routes. Next we are going to have the user authorization
+[89.44 - 94.48] so that only authorized user should be able to access our endpoints. And after that in the end
+[94.48 - 99.2] we are going to see the api testing. So how we are going to test our api and the project.
+[99.2 - 103.04] You can also find the detail timestamp in the description of the video so that you
+[103.04 - 107.6] can jump to any topic directly. So if this sounds interesting then stick around. Also don't
+[107.6 - 111.6] forget to subscribe the channel and press the bell icon so that you don't miss the videos like
+[111.6 - 113.28] this one. So let's get started.
+[120.4 - 124.96] All right guys so in this video we are going to build a contact manager application
+[124.96 - 129.76] and we are going to build the apis of how we can manage the contacts. We are also going to
+[129.76 - 134.8] introduce the authentication and authorization concept in order to build this application.
+[134.8 - 140.0] So before we go deep dive I want to give you some overview on the RESTful API conventions
+[140.0 - 144.96] because we are going to build the REST APIs. So this is the RESTful API conventions where you will
+[144.96 - 150.8] see that we have the CRUD actions. And first what we will do is we will simply going to build a CRUD
+[150.8 - 156.56] API for the contacts and contacts will be our resource. So we will have different CRUD actions
+[156.56 - 162.96] like get all contacts, get a single contact, create contact, update contact and delete contact.
+[162.96 - 168.24] For that we are going to use the HTTP methods as get, put, post and delete. And on the extreme
+[168.24 - 174.08] right we will see the end points so we are having a slash api slash contacts. And for the other one we
+[174.08 - 180.64] have the api contacts slash id. So we will have to pass the id in order to get an individual contact
+[180.64 - 185.44] or update a contact or delete a contact. And to start with this application we need to install
+[185.44 - 190.88] the Node.js in our machine. So I already have the Node.js installed in my machine and if
+[190.88 - 195.84] you want to install it then you can go to the official documentation of Node.js and then you
+[195.84 - 200.4] can simply install the current version or the recommended version for the most users.
+[200.4 - 203.92] Now we will also need a visual studio code so you can download the visual studio code from
+[203.92 - 208.8] the official documentation. Now let's jump to the visual studio code and here what we are going to
+[208.8 - 214.16] do is first we are going to set up our project. So let's go to the terminal and I'm going to open
+[214.16 - 220.0] the terminal or write and then I'm going to go to my documents directory. So let's go to the
+[220.0 - 222.32] documents and inside the documents directory I'm
+[222.88 - 226.16] And here I am going to create a new directory which will be

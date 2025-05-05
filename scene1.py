@@ -96,6 +96,7 @@ class Scene1(QWidget):
         else:
             # Reset UI if no file is selected
             self.thumbnail_label.clear()
+            self.file_path_display.clear()
             self.thumbnail_label.setVisible(False)
             self.start_button.setEnabled(False)
 

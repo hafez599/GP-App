@@ -1,20 +1,5 @@
-import itertools
-import os
 from faster_whisper import WhisperModel
 
-
-# def transcribe_segment(model, audio_path, start_time, end_time):
-#     segment_transcription = model.transcribe(audio_path)
-#     adjusted_segments = []
-#     for idx, segment in enumerate(segment_transcription["segments"], start=1):
-#         adj_segment = segment.copy()
-#         adj_segment['start'] = max(
-#             start_time, adj_segment['start'] + start_time)
-#         adj_segment['end'] = min(end_time, adj_segment['end'] + start_time)
-#         if adj_segment['end'] <= adj_segment['start']:
-#             continue
-#         adjusted_segments.append(adj_segment)
-#     return adjusted_segments
 
 def transcribe_segment(model: WhisperModel, audio_file: str, start_time: float, end_time: float) -> list:
     """Transcribe an audio segment using Faster Whisper."""
@@ -22,7 +7,6 @@ def transcribe_segment(model: WhisperModel, audio_file: str, start_time: float, 
         segments, _ = model.transcribe(audio_file, language="en", beam_size=5)
         adjusted_segments = []
         for segment in segments:
-            # Adjust timestamps to align with the segment's position in the original audio
             segment_start = max(segment.start + start_time, start_time)
             segment_end = min(segment.end + start_time, end_time)
             if segment_start < segment_end:

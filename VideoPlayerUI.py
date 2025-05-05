@@ -1,10 +1,10 @@
-import os
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtWidgets import (QMainWindow, QVBoxLayout, QPushButton,
                                QWidget, QSlider, QHBoxLayout, QSizePolicy,
                                QLabel)
 from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QStackedLayout
 
 
 class VideoPlayerUI(QMainWindow):
@@ -55,11 +55,23 @@ class VideoPlayerUI(QMainWindow):
         control_layout.setContentsMargins(5, 5, 5, 5)
         control_layout.setSpacing(5)
 
+        # Rewind button (⏪)
+        self.rewind_button = QPushButton("⏪")
+        self.rewind_button.setObjectName("rewind_button")
+        self.rewind_button.setFixedSize(30, 30)
+        control_layout.addWidget(self.rewind_button)
+
         # Play/Pause button
-        self.play_button = QPushButton("▶")
+        self.play_button = QPushButton("⏯️")
         self.play_button.setObjectName("play_button")
         self.play_button.setFixedSize(30, 30)
         control_layout.addWidget(self.play_button)
+
+        # Fast Forward button (⏩)
+        self.forward_button = QPushButton("⏩")
+        self.forward_button.setObjectName("forward_button")
+        self.forward_button.setFixedSize(30, 30)
+        control_layout.addWidget(self.forward_button)
 
         # Progress slider
         self.progress_slider = QSlider(Qt.Horizontal)
@@ -69,18 +81,17 @@ class VideoPlayerUI(QMainWindow):
         self.progress_slider.setValue(0)
         control_layout.addWidget(self.progress_slider)
 
-        # Volume button and slider container
-        volume_container = QWidget()
-        volume_container.setObjectName("volume_container")
-        volume_layout = QHBoxLayout(volume_container)
-        volume_layout.setContentsMargins(0, 0, 0, 0)
-        volume_layout.setSpacing(-50)
+        # Time label
+        self.time_label = QLabel("00:00 / 00:00")
+        self.time_label.setObjectName("time_label")
+        self.time_label.setFixedHeight(30)
+        control_layout.addWidget(self.time_label)
 
         # Volume button (toggles volume slider)
         self.volume_button = QPushButton("🔊")
         self.volume_button.setObjectName("volume_button")
         self.volume_button.setFixedSize(30, 30)
-        volume_layout.addWidget(self.volume_button)
+        control_layout.addWidget(self.volume_button)
 
         # Volume slider (hidden by default)
         self.volume_slider = QSlider(Qt.Horizontal)
@@ -89,8 +100,6 @@ class VideoPlayerUI(QMainWindow):
         self.volume_slider.setValue(50)  # Default volume at 50%
         self.volume_slider.setFixedWidth(100)
         self.volume_slider.setVisible(False)  # Hidden initially
-        volume_layout.addWidget(self.volume_slider)
-
-        control_layout.addWidget(volume_container)
+        control_layout.addWidget(self.volume_slider)
 
         layout.addWidget(control_bar)
