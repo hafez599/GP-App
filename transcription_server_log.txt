@@ -1,0 +1,223 @@
+[2025-05-05 12:06:33] Step 'Extract Audio from Video' completed in 0.18 seconds | Video: temp/175d4087-ae9b-4a81-9793-25d7accd47b0/input_video.mp4, Output: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\raw_audio.wav
+[2025-05-05 12:06:35] Step 'Get Speech Mask' completed in 0.04 seconds | Audio Length: 2019579 samples, Sample Rate: 16000 Hz
+[2025-05-05 12:06:37] Step 'Isolate Speech Focused' completed in 4.24 seconds | Input: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\raw_audio.wav, Output: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\cleaned_speech.wav
+[2025-05-05 12:06:37] Step 'Prepare Audio' completed in 4.42 seconds | Video: temp/175d4087-ae9b-4a81-9793-25d7accd47b0/input_video.mp4, Raw: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\raw_audio.wav, Cleaned: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\cleaned_speech.wav
+[2025-05-05 12:06:37] Step 'Prepare Audio' completed in 4.43 seconds
+[2025-05-05 12:06:41] Step 'Load Whisper Model' completed in 3.88 seconds
+[2025-05-05 12:06:41] Step 'Detect Silent Points' completed in 0.42 seconds | Audio: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\cleaned_speech.wav, Silent Regions Found: 7
+[2025-05-05 12:06:44] Step 'Segment Audio' completed in 3.09 seconds | Audio: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\cleaned_speech.wav, Video: temp/175d4087-ae9b-4a81-9793-25d7accd47b0/input_video.mp4, Segments: 7
+[2025-05-05 12:06:44] Step 'Segment Audio' completed in 3.09 seconds
+[2025-05-05 12:06:44] Step 'Create Segment Jobs' completed in 0.00 seconds | Total Jobs: 8, Video Duration: 126.22s
+[2025-05-05 12:06:44] Step 'Create Segment Jobs' completed in 0.04 seconds
+[2025-05-05 12:06:44] Step 'Cut Audio Segment' completed in 0.05 seconds | Input: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\cleaned_speech.wav, Output: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\segment_0_audio.wav, Start: 0.00s, End: 7.26
+[2025-05-05 12:06:51] Step 'Process Segment 0' completed in 6.80 seconds | Start Time: 0.00s, End Time: 7.26s
+[2025-05-05 12:06:51] Step 'Cut Audio Segment' completed in 0.09 seconds | Input: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\cleaned_speech.wav, Output: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\segment_1_audio.wav, Start: 7.26s, End: 30.62
+[2025-05-05 12:07:02] Step 'Process Segment 1' completed in 10.95 seconds | Start Time: 7.26s, End Time: 30.62s
+[2025-05-05 12:07:02] Step 'Cut Audio Segment' completed in 0.11 seconds | Input: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\cleaned_speech.wav, Output: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\segment_2_audio.wav, Start: 30.62s, End: 34.18
+[2025-05-05 12:07:11] Step 'Process Segment 2' completed in 9.69 seconds | Start Time: 30.62s, End Time: 34.18s
+[2025-05-05 12:07:11] Step 'Cut Audio Segment' completed in 0.14 seconds | Input: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\cleaned_speech.wav, Output: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\segment_3_audio.wav, Start: 34.18s, End: 39.23
+[2025-05-05 12:07:18] Step 'Process Segment 3' completed in 6.98 seconds | Start Time: 34.18s, End Time: 39.23s
+[2025-05-05 12:07:18] Step 'Cut Audio Segment' completed in 0.11 seconds | Input: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\cleaned_speech.wav, Output: temp/175d4087-ae9b-4a81-9793-25d7accd47b0\segment_4_audio.wav, Start: 39.23s, End: 69.17
+[2025-05-05 13:09:19] Step 'Extract Audio from Video' completed in 0.32 seconds | Video: temp/d1632137-51d5-4553-989c-748f74873cd4/input_video.mp4, Output: temp/d1632137-51d5-4553-989c-748f74873cd4\raw_audio.wav
+[2025-05-05 13:09:23] Step 'Get Speech Mask' completed in 0.04 seconds | Audio Length: 2019579 samples, Sample Rate: 16000 Hz
+[2025-05-05 13:09:24] Step 'Isolate Speech Focused' completed in 5.03 seconds | Input: temp/d1632137-51d5-4553-989c-748f74873cd4\raw_audio.wav, Output: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav
+[2025-05-05 13:09:24] Step 'Prepare Audio' completed in 5.35 seconds | Video: temp/d1632137-51d5-4553-989c-748f74873cd4/input_video.mp4, Raw: temp/d1632137-51d5-4553-989c-748f74873cd4\raw_audio.wav, Cleaned: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav
+[2025-05-05 13:09:24] Step 'Prepare Audio' completed in 5.35 seconds
+[2025-05-05 13:09:29] Step 'Load Whisper Model' completed in 4.71 seconds
+[2025-05-05 13:09:29] Step 'Detect Silent Points' completed in 0.33 seconds | Audio: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav, Silent Regions Found: 7
+[2025-05-05 13:09:32] Step 'Segment Audio' completed in 3.29 seconds | Audio: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav, Video: temp/d1632137-51d5-4553-989c-748f74873cd4/input_video.mp4, Segments: 7
+[2025-05-05 13:09:32] Step 'Segment Audio' completed in 3.29 seconds
+[2025-05-05 13:09:32] Step 'Create Segment Jobs' completed in 0.00 seconds | Total Jobs: 8, Video Duration: 126.22s
+[2025-05-05 13:09:32] Step 'Create Segment Jobs' completed in 0.05 seconds
+[2025-05-05 13:09:32] Step 'Cut Audio Segment' completed in 0.05 seconds | Input: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav, Output: temp/d1632137-51d5-4553-989c-748f74873cd4\segment_0_audio.wav, Start: 0.00s, End: 7.26
+[2025-05-05 13:09:39] Step 'Process Segment 0' completed in 6.55 seconds | Start Time: 0.00s, End Time: 7.26s
+[2025-05-05 13:09:39] Step 'Cut Audio Segment' completed in 0.24 seconds | Input: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav, Output: temp/d1632137-51d5-4553-989c-748f74873cd4\segment_1_audio.wav, Start: 7.26s, End: 30.62
+[2025-05-05 13:09:51] Step 'Process Segment 1' completed in 12.21 seconds | Start Time: 7.26s, End Time: 30.62s
+[2025-05-05 13:09:51] Step 'Cut Audio Segment' completed in 0.10 seconds | Input: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav, Output: temp/d1632137-51d5-4553-989c-748f74873cd4\segment_2_audio.wav, Start: 30.62s, End: 34.18
+[2025-05-05 13:10:02] Step 'Process Segment 2' completed in 11.12 seconds | Start Time: 30.62s, End Time: 34.18s
+[2025-05-05 13:10:02] Step 'Cut Audio Segment' completed in 0.13 seconds | Input: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav, Output: temp/d1632137-51d5-4553-989c-748f74873cd4\segment_3_audio.wav, Start: 34.18s, End: 39.23
+[2025-05-05 13:10:12] Step 'Process Segment 3' completed in 9.32 seconds | Start Time: 34.18s, End Time: 39.23s
+[2025-05-05 13:10:12] Step 'Cut Audio Segment' completed in 0.10 seconds | Input: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav, Output: temp/d1632137-51d5-4553-989c-748f74873cd4\segment_4_audio.wav, Start: 39.23s, End: 69.17
+[2025-05-05 13:10:29] Step 'Process Segment 4' completed in 17.50 seconds | Start Time: 39.23s, End Time: 69.17s
+[2025-05-05 13:10:29] Step 'Cut Audio Segment' completed in 0.11 seconds | Input: temp/d1632137-51d5-4553-989c-748f74873cd4\cleaned_speech.wav, Output: temp/d1632137-51d5-4553-989c-748f74873cd4\segment_5_audio.wav, Start: 69.17s, End: 93.33
+[2025-05-05 13:16:38] Step 'Extract Audio from Video' completed in 0.20 seconds | Video: temp/a96c3609-25cb-4089-ae86-c85693a46209/input_video.mp4, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\raw_audio.wav
+[2025-05-05 13:16:41] Step 'Get Speech Mask' completed in 0.04 seconds | Audio Length: 2019579 samples, Sample Rate: 16000 Hz
+[2025-05-05 13:16:43] Step 'Isolate Speech Focused' completed in 4.87 seconds | Input: temp/a96c3609-25cb-4089-ae86-c85693a46209\raw_audio.wav, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav
+[2025-05-05 13:16:43] Step 'Prepare Audio' completed in 5.07 seconds | Video: temp/a96c3609-25cb-4089-ae86-c85693a46209/input_video.mp4, Raw: temp/a96c3609-25cb-4089-ae86-c85693a46209\raw_audio.wav, Cleaned: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav
+[2025-05-05 13:16:43] Step 'Prepare Audio' completed in 5.07 seconds
+[2025-05-05 13:16:46] Step 'Load Whisper Model' completed in 3.79 seconds
+[2025-05-05 13:16:47] Step 'Detect Silent Points' completed in 0.31 seconds | Audio: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Silent Regions Found: 7
+[2025-05-05 13:16:47] Step 'Segment Audio' completed in 0.36 seconds | Audio: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Video: temp/a96c3609-25cb-4089-ae86-c85693a46209/input_video.mp4, Segments: 7
+[2025-05-05 13:16:47] Step 'Segment Audio' completed in 0.36 seconds
+[2025-05-05 13:16:47] Step 'Create Segment Jobs' completed in 0.00 seconds | Total Jobs: 8, Video Duration: 126.22s
+[2025-05-05 13:16:47] Step 'Create Segment Jobs' completed in 0.06 seconds
+[2025-05-05 13:16:47] Step 'Cut Audio Segment' completed in 0.06 seconds | Input: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\segment_0_audio.wav, Start: 0.00s, End: 7.26
+[2025-05-05 13:16:54] Step 'Process Segment 0' completed in 7.39 seconds | Start Time: 0.00s, End Time: 7.26s
+[2025-05-05 13:16:55] Step 'Cut Audio Segment' completed in 0.26 seconds | Input: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\segment_1_audio.wav, Start: 7.26s, End: 30.62
+[2025-05-05 13:17:07] Step 'Process Segment 1' completed in 12.79 seconds | Start Time: 7.26s, End Time: 30.62s
+[2025-05-05 13:17:07] Step 'Cut Audio Segment' completed in 0.17 seconds | Input: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\segment_2_audio.wav, Start: 30.62s, End: 34.18
+[2025-05-05 13:17:18] Step 'Process Segment 2' completed in 10.47 seconds | Start Time: 30.62s, End Time: 34.18s
+[2025-05-05 13:17:18] Step 'Cut Audio Segment' completed in 0.10 seconds | Input: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\segment_3_audio.wav, Start: 34.18s, End: 39.23
+[2025-05-05 13:17:26] Step 'Process Segment 3' completed in 8.45 seconds | Start Time: 34.18s, End Time: 39.23s
+[2025-05-05 13:17:26] Step 'Cut Audio Segment' completed in 0.09 seconds | Input: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\segment_4_audio.wav, Start: 39.23s, End: 69.17
+[2025-05-05 13:17:41] Step 'Process Segment 4' completed in 15.22 seconds | Start Time: 39.23s, End Time: 69.17s
+[2025-05-05 13:17:41] Step 'Cut Audio Segment' completed in 0.15 seconds | Input: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\segment_5_audio.wav, Start: 69.17s, End: 93.33
+[2025-05-05 13:17:59] Step 'Process Segment 5' completed in 17.56 seconds | Start Time: 69.17s, End Time: 93.33s
+[2025-05-05 13:17:59] Step 'Cut Audio Segment' completed in 0.10 seconds | Input: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\segment_6_audio.wav, Start: 93.33s, End: 95.71
+[2025-05-05 13:18:08] Step 'Process Segment 6' completed in 9.62 seconds | Start Time: 93.33s, End Time: 95.71s
+[2025-05-05 13:18:08] Step 'Cut Audio Segment' completed in 0.10 seconds | Input: temp/a96c3609-25cb-4089-ae86-c85693a46209\cleaned_speech.wav, Output: temp/a96c3609-25cb-4089-ae86-c85693a46209\segment_7_audio.wav, Start: 95.71s, End: 126.223673
+[2025-05-05 13:18:18] Step 'Process Segment 7' completed in 9.36 seconds | Start Time: 95.71s, End Time: 126.22s
+[2025-05-05 14:00:20] Step 'Extract Audio from Video' completed in 0.22 seconds | Video: temp/aca5948c-a596-4ea5-a401-1e865961a319/input_video.mp4, Output: temp/aca5948c-a596-4ea5-a401-1e865961a319\raw_audio.wav
+[2025-05-05 14:00:24] Step 'Get Speech Mask' completed in 0.04 seconds | Audio Length: 2019579 samples, Sample Rate: 16000 Hz
+[2025-05-05 14:00:26] Step 'Isolate Speech Focused' completed in 6.32 seconds | Input: temp/aca5948c-a596-4ea5-a401-1e865961a319\raw_audio.wav, Output: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav
+[2025-05-05 14:00:26] Step 'Prepare Audio' completed in 6.55 seconds | Video: temp/aca5948c-a596-4ea5-a401-1e865961a319/input_video.mp4, Raw: temp/aca5948c-a596-4ea5-a401-1e865961a319\raw_audio.wav, Cleaned: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav
+[2025-05-05 14:00:26] Step 'Prepare Audio' completed in 6.55 seconds
+[2025-05-05 14:12:06] Step 'Load Whisper Model' completed in 700.16 seconds
+[2025-05-05 14:12:07] Step 'Detect Silent Points' completed in 0.28 seconds | Audio: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav, Silent Regions Found: 7
+[2025-05-05 14:12:09] Step 'Segment Audio' completed in 2.57 seconds | Audio: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav, Video: temp/aca5948c-a596-4ea5-a401-1e865961a319/input_video.mp4, Segments: 7
+[2025-05-05 14:12:09] Step 'Segment Audio' completed in 2.57 seconds
+[2025-05-05 14:12:09] Step 'Create Segment Jobs' completed in 0.00 seconds | Total Jobs: 8, Video Duration: 126.22s
+[2025-05-05 14:12:09] Step 'Create Segment Jobs' completed in 0.04 seconds
+[2025-05-05 14:12:09] Step 'Cut Audio Segment' completed in 0.05 seconds | Input: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav, Output: temp/aca5948c-a596-4ea5-a401-1e865961a319\segment_0_audio.wav, Start: 0.00s, End: 7.26
+[2025-05-05 14:12:13] Step 'Process Segment 0' completed in 4.22 seconds | Start Time: 0.00s, End Time: 7.26s
+[2025-05-05 14:12:13] Step 'Cut Audio Segment' completed in 0.23 seconds | Input: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav, Output: temp/aca5948c-a596-4ea5-a401-1e865961a319\segment_1_audio.wav, Start: 7.26s, End: 30.62
+[2025-05-05 14:12:21] Step 'Process Segment 1' completed in 8.12 seconds | Start Time: 7.26s, End Time: 30.62s
+[2025-05-05 14:12:21] Step 'Cut Audio Segment' completed in 0.06 seconds | Input: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav, Output: temp/aca5948c-a596-4ea5-a401-1e865961a319\segment_2_audio.wav, Start: 30.62s, End: 34.18
+[2025-05-05 14:12:25] Step 'Process Segment 2' completed in 3.31 seconds | Start Time: 30.62s, End Time: 34.18s
+[2025-05-05 14:12:25] Step 'Cut Audio Segment' completed in 0.05 seconds | Input: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav, Output: temp/aca5948c-a596-4ea5-a401-1e865961a319\segment_3_audio.wav, Start: 34.18s, End: 39.23
+[2025-05-05 14:12:28] Step 'Process Segment 3' completed in 3.78 seconds | Start Time: 34.18s, End Time: 39.23s
+[2025-05-05 14:12:28] Step 'Cut Audio Segment' completed in 0.06 seconds | Input: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav, Output: temp/aca5948c-a596-4ea5-a401-1e865961a319\segment_4_audio.wav, Start: 39.23s, End: 69.17
+[2025-05-05 14:12:38] Step 'Process Segment 4' completed in 10.07 seconds | Start Time: 39.23s, End Time: 69.17s
+[2025-05-05 14:12:38] Step 'Cut Audio Segment' completed in 0.06 seconds | Input: temp/aca5948c-a596-4ea5-a401-1e865961a319\cleaned_speech.wav, Output: temp/aca5948c-a596-4ea5-a401-1e865961a319\segment_5_audio.wav, Start: 69.17s, End: 93.33
+[2025-05-05 14:13:24] Step 'Extract Audio from Video' completed in 0.22 seconds | Video: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813/input_video.mp4, Output: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\raw_audio.wav
+[2025-05-05 14:13:28] Step 'Get Speech Mask' completed in 0.04 seconds | Audio Length: 2019579 samples, Sample Rate: 16000 Hz
+[2025-05-05 14:13:30] Step 'Isolate Speech Focused' completed in 5.81 seconds | Input: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\raw_audio.wav, Output: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav
+[2025-05-05 14:13:30] Step 'Prepare Audio' completed in 6.03 seconds | Video: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813/input_video.mp4, Raw: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\raw_audio.wav, Cleaned: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav
+[2025-05-05 14:13:30] Step 'Prepare Audio' completed in 6.03 seconds
+[2025-05-05 14:13:32] Step 'Load Whisper Model' completed in 2.33 seconds
+[2025-05-05 14:13:32] Step 'Detect Silent Points' completed in 0.31 seconds | Audio: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav, Silent Regions Found: 7
+[2025-05-05 14:13:32] Step 'Segment Audio' completed in 0.36 seconds | Audio: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav, Video: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813/input_video.mp4, Segments: 7
+[2025-05-05 14:13:32] Step 'Segment Audio' completed in 0.36 seconds
+[2025-05-05 14:13:32] Step 'Create Segment Jobs' completed in 0.00 seconds | Total Jobs: 8, Video Duration: 126.22s
+[2025-05-05 14:13:32] Step 'Create Segment Jobs' completed in 0.05 seconds
+[2025-05-05 14:13:33] Step 'Cut Audio Segment' completed in 0.05 seconds | Input: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav, Output: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\segment_0_audio.wav, Start: 0.00s, End: 7.26
+[2025-05-05 14:13:37] Step 'Process Segment 0' completed in 4.13 seconds | Start Time: 0.00s, End Time: 7.26s
+[2025-05-05 14:13:37] Step 'Cut Audio Segment' completed in 0.23 seconds | Input: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav, Output: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\segment_1_audio.wav, Start: 7.26s, End: 30.62
+[2025-05-05 14:13:44] Step 'Process Segment 1' completed in 7.34 seconds | Start Time: 7.26s, End Time: 30.62s
+[2025-05-05 14:13:44] Step 'Cut Audio Segment' completed in 0.13 seconds | Input: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav, Output: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\segment_2_audio.wav, Start: 30.62s, End: 34.18
+[2025-05-05 14:13:51] Step 'Process Segment 2' completed in 6.92 seconds | Start Time: 30.62s, End Time: 34.18s
+[2025-05-05 14:13:51] Step 'Cut Audio Segment' completed in 0.18 seconds | Input: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav, Output: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\segment_3_audio.wav, Start: 34.18s, End: 39.23
+[2025-05-05 14:13:59] Step 'Process Segment 3' completed in 7.66 seconds | Start Time: 34.18s, End Time: 39.23s
+[2025-05-05 14:13:59] Step 'Cut Audio Segment' completed in 0.16 seconds | Input: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav, Output: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\segment_4_audio.wav, Start: 39.23s, End: 69.17
+[2025-05-05 14:14:11] Step 'Process Segment 4' completed in 12.13 seconds | Start Time: 39.23s, End Time: 69.17s
+[2025-05-05 14:14:11] Step 'Cut Audio Segment' completed in 0.13 seconds | Input: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav, Output: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\segment_5_audio.wav, Start: 69.17s, End: 93.33
+[2025-05-05 14:14:24] Step 'Process Segment 5' completed in 13.35 seconds | Start Time: 69.17s, End Time: 93.33s
+[2025-05-05 14:14:24] Step 'Cut Audio Segment' completed in 0.14 seconds | Input: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\cleaned_speech.wav, Output: temp/1592f3da-cb22-4c59-b5ca-0ae39a6b1813\segment_6_audio.wav, Start: 93.33s, End: 95.71
+[2025-05-05 14:15:08] Step 'Extract Audio from Video' completed in 0.20 seconds | Video: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a/input_video.mp4, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\raw_audio.wav
+[2025-05-05 14:15:12] Step 'Get Speech Mask' completed in 0.04 seconds | Audio Length: 2019579 samples, Sample Rate: 16000 Hz
+[2025-05-05 14:15:13] Step 'Isolate Speech Focused' completed in 5.36 seconds | Input: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\raw_audio.wav, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav
+[2025-05-05 14:15:13] Step 'Prepare Audio' completed in 5.57 seconds | Video: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a/input_video.mp4, Raw: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\raw_audio.wav, Cleaned: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav
+[2025-05-05 14:15:13] Step 'Prepare Audio' completed in 5.57 seconds
+[2025-05-05 14:15:16] Step 'Load Whisper Model' completed in 2.52 seconds
+[2025-05-05 14:15:16] Step 'Detect Silent Points' completed in 0.36 seconds | Audio: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Silent Regions Found: 7
+[2025-05-05 14:15:16] Step 'Segment Audio' completed in 0.43 seconds | Audio: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Video: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a/input_video.mp4, Segments: 7
+[2025-05-05 14:15:16] Step 'Segment Audio' completed in 0.43 seconds
+[2025-05-05 14:15:16] Step 'Create Segment Jobs' completed in 0.00 seconds | Total Jobs: 8, Video Duration: 126.22s
+[2025-05-05 14:15:16] Step 'Create Segment Jobs' completed in 0.07 seconds
+[2025-05-05 14:15:16] Step 'Cut Audio Segment' completed in 0.08 seconds | Input: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\segment_0_audio.wav, Start: 0.00s, End: 7.26
+[2025-05-05 14:15:20] Step 'Process Segment 0' completed in 4.17 seconds | Start Time: 0.00s, End Time: 7.26s
+[2025-05-05 14:15:21] Step 'Cut Audio Segment' completed in 0.24 seconds | Input: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\segment_1_audio.wav, Start: 7.26s, End: 30.62
+[2025-05-05 14:15:27] Step 'Process Segment 1' completed in 7.05 seconds | Start Time: 7.26s, End Time: 30.62s
+[2025-05-05 14:15:28] Step 'Cut Audio Segment' completed in 0.15 seconds | Input: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\segment_2_audio.wav, Start: 30.62s, End: 34.18
+[2025-05-05 14:15:34] Step 'Process Segment 2' completed in 6.81 seconds | Start Time: 30.62s, End Time: 34.18s
+[2025-05-05 14:15:34] Step 'Cut Audio Segment' completed in 0.19 seconds | Input: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\segment_3_audio.wav, Start: 34.18s, End: 39.23
+[2025-05-05 14:15:41] Step 'Process Segment 3' completed in 7.28 seconds | Start Time: 34.18s, End Time: 39.23s
+[2025-05-05 14:15:42] Step 'Cut Audio Segment' completed in 0.13 seconds | Input: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\segment_4_audio.wav, Start: 39.23s, End: 69.17
+[2025-05-05 14:15:53] Step 'Process Segment 4' completed in 11.75 seconds | Start Time: 39.23s, End Time: 69.17s
+[2025-05-05 14:15:53] Step 'Cut Audio Segment' completed in 0.15 seconds | Input: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\segment_5_audio.wav, Start: 69.17s, End: 93.33
+[2025-05-05 14:16:07] Step 'Process Segment 5' completed in 13.40 seconds | Start Time: 69.17s, End Time: 93.33s
+[2025-05-05 14:16:07] Step 'Cut Audio Segment' completed in 0.17 seconds | Input: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\segment_6_audio.wav, Start: 93.33s, End: 95.71
+[2025-05-05 14:16:13] Step 'Process Segment 6' completed in 6.62 seconds | Start Time: 93.33s, End Time: 95.71s
+[2025-05-05 14:16:13] Step 'Cut Audio Segment' completed in 0.18 seconds | Input: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\cleaned_speech.wav, Output: temp/ac216f79-54c7-4aef-87c6-d9508bfe889a\segment_7_audio.wav, Start: 95.71s, End: 126.223673
+[2025-05-05 14:16:24] Step 'Process Segment 7' completed in 11.12 seconds | Start Time: 95.71s, End Time: 126.22s
+[2025-05-05 15:21:04] Step 'Extract Audio from Video' completed in 2.49 seconds | Video: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c/input_video.mp4, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\raw_audio.wav
+[2025-05-05 15:21:10] Step 'Get Speech Mask' completed in 0.03 seconds | Audio Length: 2019579 samples, Sample Rate: 16000 Hz
+[2025-05-05 15:21:12] Step 'Isolate Speech Focused' completed in 7.91 seconds | Input: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\raw_audio.wav, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav
+[2025-05-05 15:21:12] Step 'Prepare Audio' completed in 10.41 seconds | Video: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c/input_video.mp4, Raw: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\raw_audio.wav, Cleaned: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav
+[2025-05-05 15:21:12] Step 'Prepare Audio' completed in 10.41 seconds
+[2025-05-05 15:21:18] Step 'Load Whisper Model' completed in 5.82 seconds
+[2025-05-05 15:21:18] Step 'Detect Silent Points' completed in 0.38 seconds | Audio: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Silent Regions Found: 7
+[2025-05-05 15:21:20] Step 'Segment Audio' completed in 2.65 seconds | Audio: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Video: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c/input_video.mp4, Segments: 7
+[2025-05-05 15:21:20] Step 'Segment Audio' completed in 2.65 seconds
+[2025-05-05 15:21:20] Step 'Create Segment Jobs' completed in 0.00 seconds | Total Jobs: 8, Video Duration: 126.22s
+[2025-05-05 15:21:20] Step 'Create Segment Jobs' completed in 0.04 seconds
+[2025-05-05 15:21:20] Step 'Cut Audio Segment' completed in 0.04 seconds | Input: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\segment_0_audio.wav, Start: 0.00s, End: 7.26
+[2025-05-05 15:21:23] Step 'Process Segment 0' completed in 3.20 seconds | Start Time: 0.00s, End Time: 7.26s
+[2025-05-05 15:21:23] Step 'Cut Audio Segment' completed in 0.08 seconds | Input: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\segment_1_audio.wav, Start: 7.26s, End: 30.62
+[2025-05-05 15:21:30] Step 'Process Segment 1' completed in 6.24 seconds | Start Time: 7.26s, End Time: 30.62s
+[2025-05-05 15:21:30] Step 'Cut Audio Segment' completed in 0.11 seconds | Input: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\segment_2_audio.wav, Start: 30.62s, End: 34.18
+[2025-05-05 15:21:35] Step 'Process Segment 2' completed in 5.70 seconds | Start Time: 30.62s, End Time: 34.18s
+[2025-05-05 15:21:35] Step 'Cut Audio Segment' completed in 0.16 seconds | Input: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\segment_3_audio.wav, Start: 34.18s, End: 39.23
+[2025-05-05 15:21:41] Step 'Process Segment 3' completed in 6.01 seconds | Start Time: 34.18s, End Time: 39.23s
+[2025-05-05 15:21:41] Step 'Cut Audio Segment' completed in 0.14 seconds | Input: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\segment_4_audio.wav, Start: 39.23s, End: 69.17
+[2025-05-05 15:21:52] Step 'Process Segment 4' completed in 10.87 seconds | Start Time: 39.23s, End Time: 69.17s
+[2025-05-05 15:21:52] Step 'Cut Audio Segment' completed in 0.12 seconds | Input: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\segment_5_audio.wav, Start: 69.17s, End: 93.33
+[2025-05-05 15:22:03] Step 'Process Segment 5' completed in 10.72 seconds | Start Time: 69.17s, End Time: 93.33s
+[2025-05-05 15:22:03] Step 'Cut Audio Segment' completed in 0.14 seconds | Input: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\segment_6_audio.wav, Start: 93.33s, End: 95.71
+[2025-05-05 15:22:09] Step 'Process Segment 6' completed in 5.68 seconds | Start Time: 93.33s, End Time: 95.71s
+[2025-05-05 15:22:09] Step 'Cut Audio Segment' completed in 0.14 seconds | Input: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\cleaned_speech.wav, Output: temp/f7c61eec-eb16-409c-b6f7-9860c8ffe95c\segment_7_audio.wav, Start: 95.71s, End: 126.223673
+[2025-05-05 15:22:18] Step 'Process Segment 7' completed in 9.30 seconds | Start Time: 95.71s, End Time: 126.22s
+[2025-05-05 15:49:55] Step 'Extract Audio from Video' completed in 2.62 seconds | Video: temp/dce75bb0-f18f-46dc-a73c-7359944669c2/input_video.mp4, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\raw_audio.wav
+[2025-05-05 15:50:01] Step 'Get Speech Mask' completed in 0.04 seconds | Audio Length: 2019579 samples, Sample Rate: 16000 Hz
+[2025-05-05 15:50:02] Step 'Isolate Speech Focused' completed in 7.50 seconds | Input: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\raw_audio.wav, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav
+[2025-05-05 15:50:02] Step 'Prepare Audio' completed in 10.12 seconds | Video: temp/dce75bb0-f18f-46dc-a73c-7359944669c2/input_video.mp4, Raw: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\raw_audio.wav, Cleaned: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav
+[2025-05-05 15:50:02] Step 'Prepare Audio' completed in 10.12 seconds
+[2025-05-05 15:50:04] Step 'Load Whisper Model' completed in 1.18 seconds
+[2025-05-05 15:50:04] Step 'Detect Silent Points' completed in 0.38 seconds | Audio: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Silent Regions Found: 7
+[2025-05-05 15:50:06] Step 'Segment Audio' completed in 2.89 seconds | Audio: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Video: temp/dce75bb0-f18f-46dc-a73c-7359944669c2/input_video.mp4, Segments: 7
+[2025-05-05 15:50:06] Step 'Segment Audio' completed in 2.89 seconds
+[2025-05-05 15:50:06] Step 'Create Segment Jobs' completed in 0.00 seconds | Total Jobs: 8, Video Duration: 126.22s
+[2025-05-05 15:50:06] Step 'Create Segment Jobs' completed in 0.04 seconds
+[2025-05-05 15:50:07] Step 'Cut Audio Segment' completed in 0.05 seconds | Input: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\segment_0_audio.wav, Start: 0.00s, End: 7.26
+[2025-05-05 15:50:10] Step 'Process Segment 0' completed in 3.58 seconds | Start Time: 0.00s, End Time: 7.26s
+[2025-05-05 15:50:10] Step 'Cut Audio Segment' completed in 0.07 seconds | Input: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\segment_1_audio.wav, Start: 7.26s, End: 30.62
+[2025-05-05 15:50:16] Step 'Process Segment 1' completed in 5.86 seconds | Start Time: 7.26s, End Time: 30.62s
+[2025-05-05 15:50:16] Step 'Cut Audio Segment' completed in 0.06 seconds | Input: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\segment_2_audio.wav, Start: 30.62s, End: 34.18
+[2025-05-05 15:50:19] Step 'Process Segment 2' completed in 3.48 seconds | Start Time: 30.62s, End Time: 34.18s
+[2025-05-05 15:50:19] Step 'Cut Audio Segment' completed in 0.06 seconds | Input: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\segment_3_audio.wav, Start: 34.18s, End: 39.23
+[2025-05-05 15:50:23] Step 'Process Segment 3' completed in 3.65 seconds | Start Time: 34.18s, End Time: 39.23s
+[2025-05-05 15:50:23] Step 'Cut Audio Segment' completed in 0.06 seconds | Input: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\segment_4_audio.wav, Start: 39.23s, End: 69.17
+[2025-05-05 15:50:33] Step 'Process Segment 4' completed in 9.46 seconds | Start Time: 39.23s, End Time: 69.17s
+[2025-05-05 15:50:33] Step 'Cut Audio Segment' completed in 0.07 seconds | Input: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\segment_5_audio.wav, Start: 69.17s, End: 93.33
+[2025-05-05 15:50:39] Step 'Process Segment 5' completed in 6.08 seconds | Start Time: 69.17s, End Time: 93.33s
+[2025-05-05 15:50:39] Step 'Cut Audio Segment' completed in 0.06 seconds | Input: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\segment_6_audio.wav, Start: 93.33s, End: 95.71
+[2025-05-05 15:50:42] Step 'Process Segment 6' completed in 3.42 seconds | Start Time: 93.33s, End Time: 95.71s
+[2025-05-05 15:50:42] Step 'Cut Audio Segment' completed in 0.07 seconds | Input: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\cleaned_speech.wav, Output: temp/dce75bb0-f18f-46dc-a73c-7359944669c2\segment_7_audio.wav, Start: 95.71s, End: 126.223673
+[2025-05-05 15:50:49] Step 'Process Segment 7' completed in 7.27 seconds | Start Time: 95.71s, End Time: 126.22s
+[2025-05-05 15:55:44] Step 'Extract Audio from Video' completed in 0.29 seconds | Video: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de/input_video.mp4, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\raw_audio.wav
+[2025-05-05 15:55:48] Step 'Get Speech Mask' completed in 0.04 seconds | Audio Length: 2019579 samples, Sample Rate: 16000 Hz
+[2025-05-05 15:55:49] Step 'Isolate Speech Focused' completed in 5.26 seconds | Input: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\raw_audio.wav, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav
+[2025-05-05 15:55:49] Step 'Prepare Audio' completed in 5.55 seconds | Video: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de/input_video.mp4, Raw: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\raw_audio.wav, Cleaned: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav
+[2025-05-05 15:55:49] Step 'Prepare Audio' completed in 5.55 seconds
+[2025-05-05 15:55:51] Step 'Load Whisper Model' completed in 1.27 seconds
+[2025-05-05 15:55:51] Step 'Detect Silent Points' completed in 0.28 seconds | Audio: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Silent Regions Found: 7
+[2025-05-05 15:55:51] Step 'Segment Audio' completed in 0.33 seconds | Audio: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Video: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de/input_video.mp4, Segments: 7
+[2025-05-05 15:55:51] Step 'Segment Audio' completed in 0.33 seconds
+[2025-05-05 15:55:51] Step 'Create Segment Jobs' completed in 0.00 seconds | Total Jobs: 8, Video Duration: 126.22s
+[2025-05-05 15:55:51] Step 'Create Segment Jobs' completed in 0.04 seconds
+[2025-05-05 15:55:51] Step 'Cut Audio Segment' completed in 0.05 seconds | Input: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\segment_0_audio.wav, Start: 0.00s, End: 7.26
+[2025-05-05 15:55:55] Step 'Process Segment 0' completed in 3.95 seconds | Start Time: 0.00s, End Time: 7.26s
+[2025-05-05 15:55:55] Step 'Cut Audio Segment' completed in 0.09 seconds | Input: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\segment_1_audio.wav, Start: 7.26s, End: 30.62
+[2025-05-05 15:56:02] Step 'Process Segment 1' completed in 6.85 seconds | Start Time: 7.26s, End Time: 30.62s
+[2025-05-05 15:56:02] Step 'Cut Audio Segment' completed in 0.14 seconds | Input: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\segment_2_audio.wav, Start: 30.62s, End: 34.18
+[2025-05-05 15:56:08] Step 'Process Segment 2' completed in 5.91 seconds | Start Time: 30.62s, End Time: 34.18s
+[2025-05-05 15:56:08] Step 'Cut Audio Segment' completed in 0.09 seconds | Input: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\segment_3_audio.wav, Start: 34.18s, End: 39.23
+[2025-05-05 15:56:20] Step 'Process Segment 3' completed in 12.73 seconds | Start Time: 34.18s, End Time: 39.23s
+[2025-05-05 15:56:21] Step 'Cut Audio Segment' completed in 0.26 seconds | Input: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\segment_4_audio.wav, Start: 39.23s, End: 69.17
+[2025-05-05 15:56:36] Step 'Process Segment 4' completed in 15.59 seconds | Start Time: 39.23s, End Time: 69.17s
+[2025-05-05 15:56:36] Step 'Cut Audio Segment' completed in 0.08 seconds | Input: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\segment_5_audio.wav, Start: 69.17s, End: 93.33
+[2025-05-05 15:56:46] Step 'Process Segment 5' completed in 10.46 seconds | Start Time: 69.17s, End Time: 93.33s
+[2025-05-05 15:56:46] Step 'Cut Audio Segment' completed in 0.08 seconds | Input: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\segment_6_audio.wav, Start: 93.33s, End: 95.71
+[2025-05-05 15:56:52] Step 'Process Segment 6' completed in 5.94 seconds | Start Time: 93.33s, End Time: 95.71s
+[2025-05-05 15:56:52] Step 'Cut Audio Segment' completed in 0.11 seconds | Input: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\cleaned_speech.wav, Output: temp/9019e8db-ce5e-4f9c-b5b3-c5751fcfc1de\segment_7_audio.wav, Start: 95.71s, End: 126.223673
+[2025-05-05 15:57:03] Step 'Process Segment 7' completed in 10.52 seconds | Start Time: 95.71s, End Time: 126.22s

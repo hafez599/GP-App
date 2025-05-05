@@ -43,3 +43,6 @@ build/
 
 # Ignore temp folder with UUID-like subfolders
 temp/
+
+# Ignore models temporary
+models/

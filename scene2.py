@@ -4,7 +4,6 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtCore import Qt
-from TranscriptionServer.server import TranscriptionServer
 from TranscriptionWorkerAPI import TranscriptionWorkerAPI
 
 
